@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Помним — фильмы, сайты и шкатулки памяти</title>
+<meta name="description" content="Сохраняем историю близкого человека: фильм памяти, персональный сайт памяти и шкатулка ручной работы для семейного архива.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<style>
+
+/* ---------- первый экран ---------- */
+
+.hero{
+padding:140px 70px 90px;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:70px;
+max-width:1400px;
+margin:auto;
+min-height:100vh;
+}
+
+.hero-left{
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+}
+
+.hero-label{
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:.25em;
+color:var(--gold);
+margin-bottom:20px;
+}
+
+.hero h1{
+font-family:"Cormorant Garamond",serif;
+font-size:70px;
+font-weight:300;
+line-height:1.08;
+margin-bottom:28px;
+max-width:640px;
+}
+
+.hero p{
+font-size:19px;
+line-height:1.9;
+color:var(--muted);
+max-width:580px;
+margin-bottom:42px;
+}
+
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+
+.hero-right{
+height:720px;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 35px 80px rgba(0,0,0,.08);
+}
+
+.hero-right img{width:100%;height:100%;object-fit:cover;}
+
+/* ---------- миссия ---------- */
+
+.mission{
+background:#fff;
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
+}
+
+.mission-text{
+max-width:860px;
+margin:auto;
+text-align:center;
+}
+
+.mission-text h2{
+font-family:"Cormorant Garamond",serif;
+font-size:54px;
+font-weight:300;
+line-height:1.2;
+margin-bottom:26px;
+}
+
+.mission-text p{
+font-size:19px;
+line-height:2;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+/* ---------- три направления ---------- */
+
+.ways{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+margin-top:70px;
+}
+
+.way{
+background:var(--card);
+border-radius:24px;
+padding:44px 38px 38px;
+box-shadow:0 15px 40px rgba(0,0,0,.05);
+display:flex;
+flex-direction:column;
+transition:.3s;
+}
+
+.way:hover{transform:translateY(-6px);}
+
+.way-word{
+font-size:12px;
+letter-spacing:.24em;
+text-transform:uppercase;
+color:var(--gold);
+margin-bottom:22px;
+}
+
+.way h3{
+font-family:"Cormorant Garamond",serif;
+font-size:38px;
+font-weight:400;
+line-height:1.15;
+margin-bottom:8px;
+}
+
+.way-key{
+font-family:"Cormorant Garamond",serif;
+font-size:26px;
+font-style:italic;
+color:var(--gold);
+margin-bottom:20px;
+}
+
+.way p{
+font-size:17px;
+line-height:1.85;
+color:var(--muted);
+margin-bottom:30px;
+flex:1;
+}
+
+.way .btn{align-self:flex-start;padding:15px 32px;}
+
+/* ---------- преимущества ---------- */
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:36px;
+margin-top:70px;
+}
+
+.feature{
+background:#fff;
+padding:44px;
+border-radius:24px;
+box-shadow:0 10px 30px rgba(0,0,0,.04);
+}
+
+.feature-number{
+font-family:"Cormorant Garamond",serif;
+font-size:66px;
+color:#efe4d2;
+margin-bottom:18px;
+line-height:1;
+}
+
+.feature h3{font-size:22px;margin-bottom:14px;font-weight:500;}
+
+.feature p{line-height:1.9;color:var(--muted);}
+
+/* ---------- цитата и призыв ---------- */
+
+.quote{padding:120px 0;text-align:center;}
+
+.quote h2{
+font-family:"Cormorant Garamond",serif;
+font-size:52px;
+font-weight:300;
+max-width:900px;
+margin:auto;
+line-height:1.3;
+}
+
+.quote p{
+margin:28px auto 0;
+font-size:19px;
+color:var(--muted);
+line-height:1.9;
+max-width:720px;
+}
+
+.cta{
+padding:130px 0;
+text-align:center;
+background:linear-gradient(#faf9f6,#f4efe7);
+}
+
+.cta h2{
+font-family:"Cormorant Garamond",serif;
+font-size:62px;
+font-weight:300;
+margin-bottom:24px;
+}
+
+.cta p{
+font-size:19px;
+line-height:1.9;
+max-width:760px;
+margin:0 auto 46px;
+color:var(--muted);
+}
+
+/* ---------- баннер акции ---------- */
+
+.promo-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.72);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:10000;
+}
+
+.promo-modal.show{display:flex;}
+
+.promo-box{position:relative;max-width:900px;width:100%;}
+
+.promo-box img{width:100%;display:block;border-radius:20px;}
+
+#promoClose{
+position:absolute;
+top:12px;
+right:12px;
+width:46px;
+height:46px;
+border:none;
+border-radius:50%;
+background:rgba(255,255,255,.95);
+font-size:32px;
+line-height:1;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+@media(max-width:1100px){
+
+.hero{
+grid-template-columns:1fr;
+padding:110px 30px 60px;
+gap:40px;
+min-height:0;
+}
+
+.hero-right{height:420px;order:-1;}
+
+.hero h1{font-size:44px;}
+
+.hero p{font-size:17px;}
+
+.mission-text h2{font-size:36px;}
+
+.ways,
+.features{grid-template-columns:1fr;}
+
+.quote h2{font-size:34px;}
+
+.cta h2{font-size:40px;}
+
+.feature{padding:32px;}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html" class="logo">Помним</a>
+
+<ul class="menu">
+<li><a href="films.html">Фильмы памяти</a></li>
+<li><a href="sites.html">Сайты</a></li>
+<li><a href="catalog.html">Каталог</a></li>
+</ul>
+
+<button class="header-order" id="headerOrder">Заказать</button>
+
+</nav>
+
+<section class="hero">
+
+<div class="hero-left">
+
+<div class="hero-label">Помним</div>
+
+<h1>Сохраняем историю человека, которого любят</h1>
+
+<p>
+Мы собираем семейный архив — фотографии, домашние видео, документы и рассказы близких — и превращаем его в то, что можно пересматривать, показывать детям и передавать дальше.
+</p>
+
+<div class="hero-buttons">
+<a class="btn btn-main" href="#ways">Что мы делаем</a>
+<a class="btn btn-light" href="films.html">Посмотреть работы</a>
+</div>
+
+</div>
+
+<div class="hero-right">
+<img src="img4.jpg" alt="Семейный фотоархив">
+</div>
+
+</section>
+
+<section class="section mission">
+
+<div class="container">
+
+<div class="mission-text">
+
+<div class="subtitle">Наша миссия</div>
+
+<h2>Память живёт, пока её бережно хранят</h2>
+
+<p>
+Фотографии выцветают, видеокассеты размагничиваются, а живые рассказы стираются за два-три поколения. Дальше остаётся имя на памятнике и несколько снимков в коробке из-под обуви.
+</p>
+
+<p>
+Мы переводим семейный архив в форму, которая переживёт время: её не стыдно показать, легко передать и трудно потерять. Чтобы внуки знали не даты, а человека.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="ways">
+
+<div class="container">
+
+<div class="subtitle">Чем мы занимаемся</div>
+
+<h2 class="title">Три способа сберечь историю</h2>
+
+<p class="description">
+Они работают и по отдельности, и вместе: фильм записывается на флешку, флешка ложится в шкатулку, а сайт открывается по ссылке из любой точки мира.
+</p>
+
+<div class="ways">
+
+<article class="way">
+<div class="way-word">Красота</div>
+<h3>Фильм памяти</h3>
+<div class="way-key">чтобы смотреть</div>
+<p>
+Из разрозненных снимков и обрывков домашнего видео получается цельный рассказ — с музыкой, титрами и голосом. То, что включают на поминальном обеде и смотрят всей семьёй, не отрываясь.
+</p>
+<a class="btn btn-main" href="films.html">Посмотреть фильмы</a>
+</article>
+
+<article class="way">
+<div class="way-word">Значимость</div>
+<h3>Сайт памяти</h3>
+<div class="way-key">чтобы знали</div>
+<p>
+Отдельная страница в интернете: биография, фотоархив, награды, документы, воспоминания близких. Открывается по ссылке или QR-коду — и говорит о человеке в полный голос, а не в три строки.
+</p>
+<a class="btn btn-main" href="sites.html">Посмотреть сайты</a>
+</article>
+
+<article class="way">
+<div class="way-word">Память</div>
+<h3>Шкатулка</h3>
+<div class="way-key">чтобы держать в руках</div>
+<p>
+Ручная работа из дерева: внутри флешка с фильмом, фотографии и то, что дорого. Стоит дома на виду — в отличие от папки в облаке, о которой через год никто не вспомнит.
+</p>
+<a class="btn btn-main" href="catalog.html">Выбрать шкатулку</a>
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="quote">
+
+<div class="container">
+
+<h2>Память живёт до тех пор, пока её бережно хранят и передают следующим поколениям</h2>
+
+<p>
+Мы делаем фильмы, сайты и шкатулки, которые помогают снова услышать любимую музыку, увидеть дорогие фотографии и сохранить историю семьи на долгие годы.
+</p>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<div class="subtitle">Наши преимущества</div>
+
+<h2 class="title">Почему выбирают нас</h2>
+
+<div class="features">
+
+<div class="feature">
+<div class="feature-number">01</div>
+<h3>Индивидуальная работа</h3>
+<p>Каждая работа создаётся с нуля на основе материалов семьи. Никаких шаблонных историй и готовых заготовок.</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">02</div>
+<h3>Бережный подход</h3>
+<p>Мы понимаем, насколько важна каждая фотография и каждое воспоминание, поэтому относимся к ним максимально внимательно.</p>
+</div>
+
+<div class="feature">
+<div class="feature-number">03</div>
+<h3>Современный формат</h3>
+<p>Готовую работу удобно смотреть на телефоне, телевизоре и компьютере или отправить родственникам в любую точку мира.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="cta" id="order">
+
+<div class="container">
+
+<h2>Сохраните историю близкого человека</h2>
+
+<p>
+Отправьте фотографии, видео и несколько слов о человеке. Мы соберём то, что будет хранить самые дорогие воспоминания и сможет объединить всю семью.
+</p>
+
+<a class="btn btn-main" href="catalog.html">Перейти в каталог</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-logo">Помним</div>
+
+<div class="footer-links">
+<a href="films.html">Фильмы памяти</a>
+<a href="sites.html">Сайты</a>
+<a href="catalog.html">Каталог</a>
+<a href="#">Политика конфиденциальности</a>
+</div>
+
+</footer>
+
+<div class="modal" id="modal">
+<div class="modal-window">
+<button class="close" id="closeModal" aria-label="Закрыть">&times;</button>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<div id="promoModal" class="promo-modal">
+<div class="promo-box">
+<button id="promoClose" aria-label="Закрыть">&times;</button>
+<img src="banner.png" alt="Акция">
+</div>
+</div>
+
+<script>
+
+/* ---------- кнопка «Заказать» ---------- */
+
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+
+document.getElementById("headerOrder").addEventListener("click", () => {
+modalBody.innerHTML = `
+<h2>Заказ</h2>
+<p class="modal-lead">
+Для заказа <b>фильма, сайта или шкатулки</b><br>
+обратитесь к сотруднику заведения.
+</p>`;
+modal.classList.add("active");
+});
+
+document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("active"));
+
+modal.addEventListener("click", event => {
+if(event.target === modal){ modal.classList.remove("active"); }
+});
+
+document.addEventListener("keydown", event => {
+if(event.key === "Escape"){ modal.classList.remove("active"); }
+});
+
+/* ---------- появление блоков ---------- */
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){ entry.target.classList.add("show"); }
+});
+}, { threshold: 0.05 });
+
+document.querySelectorAll(".way, .feature").forEach(item => {
+item.classList.add("fade");
+observer.observe(item);
+});
+
+/* ---------- баннер акции ---------- */
+
+/* false — выключить показ баннера */
+const promoEnabled = true;
+
+const promo = document.getElementById("promoModal");
+
+if(promoEnabled){
+window.addEventListener("load", () => {
+setTimeout(() => promo.classList.add("show"), 5000);
+});
+}
+
+document.getElementById("promoClose").addEventListener("click", () => promo.classList.remove("show"));
+
+promo.addEventListener("click", event => {
+if(event.target === promo){ promo.classList.remove("show"); }
+});
+
+</script>
+
+<script src="placeholder.js"></script>
+</body>
+
+</html>

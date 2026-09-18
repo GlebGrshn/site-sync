@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Памяти Николая Ветрова</title>
+
+<!--
+================================================================================
+  САЙТ ПАМЯТИ — сборный: ВСЕ ТРИ ДИЗАЙНА В ОДНОМ ФАЙЛЕ
+  Переключатель тем — в шапке. Выбор запоминается.
+      «Свет»   — тёплая, архивная
+      «Ночь»   — тёмная, кинематографичная
+      «Бумага» — строгая типографика
+
+  ДВА СПОСОБА ОБНОВИТЬ САЙТ
+  ─────────────────────────
+  1. ПРЯМО В БРАУЗЕРЕ (проще).
+     Откройте страницу, нажмите «Редактировать» внизу справа.
+     Тексты правятся по клику, у фото и видео — свои подписи,
+     блоки добавляются, удаляются и переставляются кнопками.
+     Когда закончите — «Сохранить файл»: браузер отдаст готовый
+     index.html, положите его вместо старого. Всё, сайт обновлён.
+     Правки не теряются: черновик хранится в браузере до сохранения.
+
+  2. В ТЕКСТОВОМ РЕДАКТОРЕ.
+     БЛОК 1 (сразу под этим комментарием) — все тексты, фото, видео.
+     БЛОК 2 (палитры в <style>) — цвета и шрифты каждой темы.
+
+  Блок данных одинаковый во всех четырёх сайтах — его можно
+  копировать между ними целиком.
+================================================================================
+-->
+
+<!-- ============================================================ -->
+<!-- БЛОК 1. ДАННЫЕ. МЕНЯЙТЕ ТОЛЬКО ТЕКСТ В КАВЫЧКАХ.             -->
+<!-- ============================================================ -->
+<script id="data">
+const DATA = {
+
+  /* --- Шапка и обложка --- */
+  name:     "Николай Сергеевич Ветров",
+  short:    "Николай Ветров",
+  years:    "1951 — 2024",
+  born:     "12 марта 1951",
+  died:     "4 октября 2024",
+  role:     "Учитель географии, фотограф, путешественник",
+  place:    "Нижний Новгород",
+  epitaph:  "Мир начинается за порогом. Иди и смотри.",
+
+  portrait: "",   // главный портрет, напр. "media/portrait.jpg"
+  cover:    "",   // широкое фото для фона обложки, напр. "media/cover.jpg"
+
+  /* --- Биография: каждый абзац — отдельная строка в кавычках --- */
+  about: [
+    "Николай Сергеевич родился в Горьком весной 1951 года, в доме на Ильинской, где под окнами каждый май зацветала старая яблоня. Он любил рассказывать, что первую карту мира нарисовал сам — мелом на асфальте, и был очень расстроен, когда её смыл дождь.",
+    "Сорок лет он преподавал географию в школе №14. Его уроки помнят несколько поколений: он приносил на них камни, гербарии, самодельные слайды и всегда начинал с вопроса, а не с ответа. Выпускники писали ему письма из Владивостока, Мурманска, Праги — он хранил все, в жестяной коробке из-под чая.",
+    "С 1985 года и до последних дней он не расставался с фотоаппаратом. Сначала «Зенит», потом «Никон», потом просто телефон — техника его не интересовала, интересовал свет. Большая часть снимков в этой галерее сделана им; на некоторых, редких, он сам — потому что фотографировать его было почти невозможно.",
+    "Он ушёл тихо, дома, утром 4 октября 2024 года, окружённый семьёй. На столе остался недопитый чай и раскрытый атлас на странице с Камчаткой — туда он собирался следующим летом."
+  ],
+
+  /* --- Короткие факты в колонке справа --- */
+  facts: [
+    { k: "Дата рождения", v: "12 марта 1951" },
+    { k: "Дата смерти",   v: "4 октября 2024" },
+    { k: "Город",         v: "Нижний Новгород" },
+    { k: "Профессия",     v: "Учитель географии" },
+    { k: "Семья",         v: "Жена Анна, трое детей, пятеро внуков" },
+    { k: "Любимое место", v: "Байкал, мыс Хобой" }
+  ],
+
+  /* --- Хронология жизни --- */
+  timeline: [
+    { year: "1951", title: "Родился в Горьком",       text: "Первый ребёнок в семье инженера и библиотекаря." },
+    { year: "1968", title: "Педагогический институт",  text: "Поступил на географический факультет с первого раза." },
+    { year: "1973", title: "Первый урок",              text: "Пришёл в школу №14 молодым специалистом и остался на сорок лет." },
+    { year: "1976", title: "Свадьба с Анной",          text: "Познакомились в походе на Керженце, прожили вместе сорок восемь лет." },
+    { year: "1985", title: "Первый фотоаппарат",       text: "«Зенит-Е», купленный на отпускные. С него началась вся эта галерея." },
+    { year: "1994", title: "Экспедиция на Байкал",     text: "Повёз старшеклассников через всю страну на поезде. Говорил, что это лучший его урок." },
+    { year: "2003", title: "Заслуженный учитель",      text: "Звание получил, а на торжество не поехал — был в походе с классом." },
+    { year: "2011", title: "Кружок краеведения",       text: "Вышел на пенсию и тут же вернулся в школу — вести кружок, бесплатно." },
+    { year: "2024", title: "Светлая память",           text: "Ушёл дома, 4 октября, в окружении семьи." }
+  ],
+
+  /* --- Фотогалерея. Добавляйте строки по образцу --- */
+  gallery: [
+    { src: "", caption: "На крыльце родительского дома",  year: "1957" },
+    { src: "", caption: "Студенческий поход на Керженец", year: "1971" },
+    { src: "", caption: "Первый выпуск, школа №14",       year: "1976" },
+    { src: "", caption: "С Анной на даче",                year: "1983" },
+    { src: "", caption: "Байкал, мыс Хобой",              year: "1994" },
+    { src: "", caption: "Урок географии",                 year: "2001" },
+    { src: "", caption: "С внуками на Волге",             year: "2014" },
+    { src: "", caption: "Последняя весна",                year: "2024" }
+  ],
+
+  /* --- Видео. Либо src (свой файл), либо youtube (ID ролика) --- */
+  videos: [
+    { src: "", youtube: "", poster: "", title: "Юбилей, 70 лет", text: "Домашняя съёмка, март 2021 года." },
+    { src: "", youtube: "", poster: "", title: "Последний урок", text: "Записано выпускниками, май 2011 года." }
+  ],
+
+  /* --- Воспоминания близких --- */
+  memories: [
+    { author: "Анна Ветрова", relation: "жена", text: "Он всегда вставал раньше всех, чтобы никто не мешал ему смотреть, как светает. Сорок восемь лет я просыпалась от запаха его кофе." },
+    { author: "Мария",        relation: "дочь", text: "Папа никогда не говорил «ты не сможешь». Он говорил «давай посмотрим карту» — и мы искали дорогу." },
+    { author: "Сергей Демин", relation: "ученик, выпуск 1989", text: "Благодаря Николаю Сергеевичу я стал геологом. Он один раз дал мне подержать кусок базальта — и всё решилось." },
+    { author: "Павел",        relation: "сын",  text: "Он чинил всё: велосипеды, будильники, настроение. Молча, за столом на кухне." }
+  ],
+
+  /* --- Прощание и место памяти --- */
+  farewell: {
+    text:  "Прощание состоялось 7 октября 2024 года. Семья благодарит всех, кто пришёл и кто написал. Если вы хотите почтить память Николая Сергеевича — посадите дерево или сходите туда, где давно хотели побывать.",
+    date:  "7 октября 2024, 11:00",
+    place: "Нижний Новгород, Красная Этна, участок 14",
+    mapUrl: ""   // ссылка на карту, если нужна
+  },
+
+  /* --- Контакты семьи (можно оставить пустыми) --- */
+  contact: { email: "", phone: "" },
+
+  /* --- Подписи разделов --- */
+  labels: {
+    about: "О нём", timeline: "Путь", gallery: "Фотографии",
+    video: "Видео", memories: "Воспоминания", farewell: "Прощание"
+  }
+};
+</script>
+
+<style>
+/* ================================================================ */
+/* БЛОК 2. ПАЛИТРЫ ТЕМ. Меняйте значения справа от двоеточия.        */
+/* ================================================================ */
+
+/* @theme:warm */
+body[data-theme="warm"]{
+  --bg:#f6f1e8; --panel:#fffdf8; --ink:#241f1a; --soft:#6e6255;
+  --line:#e2d9c9; --hair:#d3c7b2; --accent:#a6552f; --tint:#e8dcc7;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:Georgia,"Times New Roman",serif;
+  --micro:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --radius:2px; --grain:.4; --blend:multiply;
+  --ph-a:#e6dbc8; --ph-b:#cbba9d; --ph-ink:#7d7060;
+}
+/* @end */
+/* @theme:noir */
+body[data-theme="noir"]{
+  --bg:#0a0a0b; --panel:#111214; --ink:#edeae4; --soft:#8c877f;
+  --line:#232427; --hair:#33343a; --accent:#c9a961; --tint:#1a1b1e;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --micro:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --radius:0px; --grain:.55; --blend:overlay;
+  --ph-a:#26282c; --ph-b:#141518; --ph-ink:#6a6d73;
+}
+/* @end */
+/* @theme:paper */
+body[data-theme="paper"]{
+  --bg:#ffffff; --panel:#fafaf9; --ink:#0a0a0a; --soft:#73736f;
+  --line:#e5e5e2; --hair:#0a0a0a; --accent:#0a0a0a; --tint:#f0f0ee;
+  --spot:#d6301f;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --micro:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --radius:0px; --grain:0; --blend:multiply;
+  --ph-a:#efefed; --ph-b:#dedeb9; --ph-b:#dededa; --ph-ink:#a0a09b;
+}
+/* @end */
+
+/* ================================================================ */
+/* Дальше — общий движок и оформление. Правки не обязательны.        */
+/* ================================================================ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:17.5px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.wrap{width:min(1220px,100% - 56px);margin-inline:auto}
+@media(max-width:640px){.wrap{width:min(1220px,100% - 36px)}}
+
+/* зерно поверх страницы */
+.grain{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:var(--grain);
+  mix-blend-mode:var(--blend);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E")}
+
+/* мелкие подписи */
+.micro{font-family:var(--micro);font-size:11.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--soft)}
+
+/* ---------------- шапка ---------------- */
+.nav{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:62px}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto;white-space:nowrap}
+.brand b{font-family:var(--serif);font-weight:400;font-size:17px}
+.nav menu{display:flex;gap:24px;margin:0;padding:0;list-style:none;overflow-x:auto;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.nav menu::-webkit-scrollbar{display:none}
+.nav menu a{font-family:var(--micro);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--soft);white-space:nowrap;
+  padding-bottom:2px;border-bottom:1px solid transparent;transition:.2s}
+.nav menu a:hover,.nav menu a.on{color:var(--ink);border-color:var(--ink)}
+@media(max-width:820px){.brand b{display:none}}
+
+/* @switcher-css */
+/* переключатель тем */
+.themes{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:100px}
+.themes button{border:0;background:none;cursor:pointer;padding:6px 13px;border-radius:100px;
+  font-family:var(--micro);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--soft);transition:.2s}
+.themes button:hover{color:var(--ink)}
+.themes button.on{background:var(--ink);color:var(--bg)}
+@media(max-width:560px){.themes button{padding:6px 9px;letter-spacing:.02em}}
+/* @end */
+
+/* ---------------- обложка ---------------- */
+.hero{position:relative;overflow:hidden;padding:96px 0 0}
+.hero-bg{position:absolute;inset:0;background:var(--cover) center/cover no-repeat;opacity:0}
+.hero-in{position:relative;display:grid;grid-template-columns:1.08fr .92fr;
+  gap:clamp(32px,5vw,72px);align-items:end}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr}}
+.kicker{margin:0 0 22px}
+h1{font-family:var(--serif);font-weight:400;margin:0;
+  font-size:clamp(42px,6.6vw,80px);line-height:1.02;letter-spacing:-.018em}
+.lifespan{font-family:var(--serif);color:var(--soft);margin:14px 0 0;
+  font-size:clamp(21px,2.6vw,30px);font-variant-numeric:lining-nums}
+.hero-quote{margin:34px 0 0;max-width:26em}
+.hero-quote p{margin:0;font-family:var(--serif);font-style:italic;
+  font-size:clamp(19px,2.2vw,25px);line-height:1.5}
+.hero-fig{margin:0;position:relative}
+.hero-fig .frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--tint);
+  border-radius:var(--radius)}
+.hero-fig .frame img{width:100%;height:100%;object-fit:cover}
+.hero-fig figcaption{margin-top:12px}
+.hero-foot{display:flex;justify-content:space-between;align-items:center;gap:20px;
+  margin-top:clamp(40px,6vw,76px);padding:18px 0;border-top:1px solid var(--line)}
+.cue{display:inline-flex;align-items:center;gap:9px}
+.cue i{width:26px;height:1px;background:currentColor;display:block;
+  animation:slide 2.4s infinite ease-in-out}
+@keyframes slide{0%,100%{transform:translateX(0);opacity:.45}50%{transform:translateX(7px);opacity:1}}
+
+/* ---------------- секции ---------------- */
+.block{padding:clamp(64px,8vw,110px) 0}
+.head{display:grid;grid-template-columns:auto 1fr;align-items:baseline;
+  gap:22px;margin-bottom:clamp(34px,4vw,56px)}
+.head .num{font-family:var(--micro);font-size:11.5px;letter-spacing:.18em;color:var(--soft)}
+.head h2{font-family:var(--serif);font-weight:400;margin:0;line-height:1.1;
+  font-size:clamp(28px,3.8vw,44px);letter-spacing:-.01em}
+.head .rule{grid-column:1/-1;height:1px;background:var(--line);margin-top:18px}
+
+/* биография */
+.about{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(34px,5vw,68px);align-items:start}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+.bio p{margin:0 0 21px;max-width:38em}
+.facts{display:grid}
+.fact{display:flex;justify-content:space-between;gap:18px;padding:13px 0;
+  border-bottom:1px solid var(--line);align-items:baseline}
+.fact:first-child{border-top:1px solid var(--line)}
+.fact b{font-weight:400;text-align:right;font-size:16px}
+
+/* хронология */
+.tl{display:grid}
+.tl-item{position:relative;display:grid;grid-template-columns:132px 1fr;gap:30px;
+  padding:24px 0;border-top:1px solid var(--line);transition:background .35s}
+.tl-item:last-child{border-bottom:1px solid var(--line)}
+@media(max-width:640px){.tl-item{grid-template-columns:1fr;gap:5px}}
+.tl-year{font-family:var(--serif);font-size:clamp(24px,3vw,32px);line-height:1;color:var(--accent)}
+.tl-title{font-size:19px;margin-bottom:3px}
+.tl-text{color:var(--soft);font-size:16.5px;max-width:46em}
+
+/* галерея */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));
+  gap:clamp(14px,1.6vw,22px)}
+.shot{margin:0;position:relative}
+.shot .frame{position:relative;overflow:hidden;background:var(--tint);
+  border-radius:var(--radius);aspect-ratio:4/5;cursor:zoom-in}
+.shot:nth-child(3n+1) .frame{aspect-ratio:4/3}
+.shot:nth-child(3n) .frame{aspect-ratio:1/1}
+.shot .frame img{width:100%;height:100%;object-fit:cover;
+  transition:transform .7s cubic-bezier(.2,.7,.3,1),filter .5s}
+.shot .frame:hover img{transform:scale(1.045)}
+.shot figcaption{display:flex;justify-content:space-between;gap:14px;
+  align-items:baseline;padding-top:11px}
+.shot figcaption b{font-weight:400;font-size:15.5px}
+.shot .n{position:absolute;top:10px;left:12px;z-index:2;display:none;
+  font-family:var(--micro);font-size:11px;letter-spacing:.14em;
+  color:#fff;mix-blend-mode:difference}
+
+/* видео */
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:clamp(20px,2.4vw,32px)}
+.vcard{margin:0}
+.vbox{position:relative;aspect-ratio:16/9;background:var(--tint);
+  border-radius:var(--radius);overflow:hidden}
+.vbox video,.vbox iframe{width:100%;height:100%;border:0;display:block}
+.vstub{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;
+  gap:13px;text-align:center;padding:22px;color:var(--soft);font-size:14.5px}
+.vstub .play{width:54px;height:54px;border-radius:50%;border:1px solid currentColor;
+  display:grid;place-content:center;font-size:17px;padding-left:3px}
+.vmeta{padding-top:14px}
+.vmeta h3{font-family:var(--serif);font-weight:400;font-size:21px;margin:0 0 4px}
+.vmeta p{margin:0;color:var(--soft);font-size:16px}
+
+/* воспоминания */
+.mem{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.memo{margin:0}
+.memo p{margin:0 0 14px;font-family:var(--serif);font-size:19px;line-height:1.6}
+.memo .who b{font-weight:400}
+.memo .who span{color:var(--soft)}
+
+/* прощание */
+.farewell{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(30px,4vw,56px);align-items:start}
+@media(max-width:800px){.farewell{grid-template-columns:1fr}}
+.farewell .ftext{margin:0;font-size:19px;line-height:1.65;max-width:34em}
+.fmeta div{padding:14px 0;border-bottom:1px solid var(--line)}
+.fmeta div:first-child{border-top:1px solid var(--line)}
+.fmeta b{display:block;font-weight:400;margin-top:4px;font-size:16.5px}
+
+/* подвал */
+footer{border-top:1px solid var(--line);padding:44px 0 64px}
+footer .wrap{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:baseline}
+footer .fname{font-family:var(--serif);font-size:21px}
+
+/* лайтбокс */
+.lb{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
+  padding:clamp(20px,5vw,60px);background:color-mix(in srgb,var(--bg) 96%,#000)}
+body[data-theme="warm"] .lb{background:rgba(30,24,18,.95);color:#f2ece1}
+body[data-theme="noir"] .lb{background:rgba(6,6,7,.97)}
+body[data-theme="paper"] .lb{background:rgba(255,255,255,.985)}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:80vh;object-fit:contain}
+.lb .cap{position:absolute;left:0;right:0;bottom:26px;text-align:center}
+.lb button{position:absolute;background:none;border:0;cursor:pointer;
+  font-size:30px;line-height:1;padding:14px;opacity:.7;transition:.2s}
+.lb button:hover{opacity:1}
+.lb .prev{left:4px;top:50%;transform:translateY(-50%)}
+.lb .next{right:4px;top:50%;transform:translateY(-50%)}
+.lb .close{right:8px;top:6px;font-size:26px}
+
+/* появление при прокрутке */
+.rv>*{opacity:0;transform:translateY(18px);
+  transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1)}
+.rv.in>*{opacity:1;transform:none}
+.rv.in>*:nth-child(2){transition-delay:.07s}
+.rv.in>*:nth-child(3){transition-delay:.13s}
+@media(prefers-reduced-motion:reduce){
+  .rv>*{opacity:1;transform:none;transition:none}
+  .cue i{animation:none}
+}
+
+/* ================================================================ */
+/* ТЕМА «СВЕТ»                                                      */
+/* ================================================================ */
+/* @theme:warm */
+body[data-theme="warm"] .hero{padding-top:clamp(56px,7vw,104px)}
+body[data-theme="warm"] .hero-fig::before{content:"";position:absolute;
+  inset:26px -22px -22px 26px;background:var(--tint);border-radius:var(--radius)}
+body[data-theme="warm"] .hero-fig .frame{border:9px solid var(--panel);
+  box-shadow:0 30px 60px -34px rgba(60,40,22,.6)}
+body[data-theme="warm"] .kicker{color:var(--accent)}
+body[data-theme="warm"] .hero-quote{border-left:2px solid var(--accent);padding-left:22px}
+body[data-theme="warm"] .head .num{color:var(--accent)}
+body[data-theme="warm"] .bio .item:first-child p::first-letter{float:left;
+  font-family:var(--serif);font-size:66px;line-height:.86;padding:8px 12px 0 0;color:var(--accent)}
+body[data-theme="warm"] .facts{background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:4px 22px 10px}
+body[data-theme="warm"] .fact:first-child{border-top:0}
+body[data-theme="warm"] .tl{padding-left:32px;margin-left:6px;border-left:1px solid var(--line)}
+body[data-theme="warm"] .tl-item{border:0;padding:0 0 28px;grid-template-columns:1fr}
+body[data-theme="warm"] .tl-item:last-child{border-bottom:0;padding-bottom:0}
+body[data-theme="warm"] .tl-item::before{content:"";position:absolute;left:-38px;top:8px;
+  width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+body[data-theme="warm"] .tl-year{font-size:14px;letter-spacing:.18em;font-family:var(--micro)}
+body[data-theme="warm"] .shot .frame{border:8px solid var(--panel);
+  box-shadow:0 12px 30px -22px rgba(60,40,22,.55)}
+body[data-theme="warm"] .memo{background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:24px 26px 22px;position:relative}
+body[data-theme="warm"] .memo::before{content:"“";position:absolute;top:2px;right:18px;
+  font-family:var(--serif);font-size:64px;color:var(--tint);line-height:1}
+body[data-theme="warm"] .memo p{font-style:italic}
+body[data-theme="warm"] .farewell{background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:clamp(24px,3vw,38px)}
+body.has-cover[data-theme="warm"] .hero-bg{opacity:.1;filter:saturate(.45)}
+/* @end */
+
+/* ================================================================ */
+/* ТЕМА «НОЧЬ»                                                      */
+/* ================================================================ */
+/* @theme:noir */
+body[data-theme="noir"] .nav{background:rgba(10,10,11,.86);backdrop-filter:blur(12px)}
+body[data-theme="noir"] .hero{min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding-top:150px}
+body[data-theme="noir"] .hero-bg{opacity:1;transform:scale(1.04)}
+body[data-theme="noir"] .hero-bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(115% 85% at 50% 15%,rgba(0,0,0,.1),rgba(0,0,0,.86) 72%),
+             linear-gradient(rgba(10,10,11,.35),rgba(10,10,11,.97))}
+body[data-theme="noir"] .hero-in{grid-template-columns:1.25fr .75fr}
+body[data-theme="noir"] .kicker{color:var(--accent);position:relative;padding-top:20px}
+body[data-theme="noir"] .kicker::before{content:"";position:absolute;top:0;left:0;
+  width:56px;height:1px;background:var(--accent)}
+body[data-theme="noir"] h1{font-size:clamp(44px,8.2vw,104px);line-height:.99;letter-spacing:-.025em}
+body[data-theme="noir"] .lifespan{font-family:var(--micro);font-size:13px;
+  letter-spacing:.36em;color:var(--accent);margin-top:20px}
+body[data-theme="noir"] .hero-fig .frame{filter:grayscale(.25) contrast(1.05);
+  box-shadow:0 50px 90px -46px #000}
+body[data-theme="noir"] .head{grid-template-columns:1fr;gap:12px}
+body[data-theme="noir"] .head h2{font-size:clamp(30px,4.6vw,54px)}
+body[data-theme="noir"] .head .num{color:var(--accent)}
+body[data-theme="noir"] .bio .item:first-child p{font-size:21px;line-height:1.62}
+body[data-theme="noir"] .tl-item:hover{background:linear-gradient(90deg,
+  color-mix(in srgb,var(--accent) 8%,transparent),transparent 62%)}
+body[data-theme="noir"] .gal{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:2px 28px 22px;margin-inline:-28px;scrollbar-width:thin}
+body[data-theme="noir"] .gal::-webkit-scrollbar{height:5px}
+body[data-theme="noir"] .gal::-webkit-scrollbar-thumb{background:var(--hair)}
+body[data-theme="noir"] .shot{flex:0 0 min(80vw,392px);scroll-snap-align:center}
+body[data-theme="noir"] .shot .frame,
+body[data-theme="noir"] .shot:nth-child(3n+1) .frame,
+body[data-theme="noir"] .shot:nth-child(3n) .frame{aspect-ratio:4/5}
+body[data-theme="noir"] .shot .frame img{filter:grayscale(.45)}
+body[data-theme="noir"] .shot .frame:hover img{filter:none}
+body[data-theme="noir"] .shot .n{display:block}
+body[data-theme="noir"] .arrows{display:flex}
+body[data-theme="noir"] .videos{grid-template-columns:1fr;gap:56px}
+body[data-theme="noir"] .vcard{display:grid;grid-template-columns:1.55fr 1fr;
+  gap:40px;align-items:center}
+body[data-theme="noir"] .vcard:nth-child(even){grid-template-columns:1fr 1.55fr}
+body[data-theme="noir"] .vcard:nth-child(even) .vmeta{order:-1}
+body[data-theme="noir"] .vbox{box-shadow:0 50px 90px -50px #000}
+body[data-theme="noir"] .vmeta h3{font-size:27px}
+@media(max-width:860px){
+  body[data-theme="noir"] .vcard,
+  body[data-theme="noir"] .vcard:nth-child(even){grid-template-columns:1fr;gap:16px}
+  body[data-theme="noir"] .vcard:nth-child(even) .vmeta{order:0}
+}
+body[data-theme="noir"] .mem{display:flex;gap:26px;overflow-x:auto;
+  scroll-snap-type:x mandatory;padding:0 28px 20px;margin-inline:-28px;scrollbar-width:thin}
+body[data-theme="noir"] .memo{flex:0 0 min(88vw,540px);scroll-snap-align:center;
+  border-left:1px solid var(--accent);padding-left:28px}
+body[data-theme="noir"] .memo p{font-size:clamp(19px,2.2vw,25px);font-style:italic}
+/* @end */
+
+/* ================================================================ */
+/* ТЕМА «БУМАГА»                                                    */
+/* ================================================================ */
+/* @theme:paper */
+body[data-theme="paper"] .nav{border-bottom:1px solid var(--ink)}
+body[data-theme="paper"] .nav menu a.on{color:var(--spot);border-color:var(--spot)}
+body[data-theme="paper"] .hero{padding:44px 0 0;border-bottom:1px solid var(--ink)}
+body[data-theme="paper"] .hero-in{grid-template-columns:repeat(12,1fr);
+  column-gap:24px;row-gap:0;align-items:start}
+body[data-theme="paper"] .hero-type{display:contents}
+body[data-theme="paper"] .kicker{grid-column:1/13;grid-row:1;
+  display:flex;justify-content:space-between;border-bottom:1px solid var(--line);
+  padding-bottom:12px;margin-bottom:20px}
+body[data-theme="paper"] h1{grid-column:1/13;grid-row:2;
+  font-size:clamp(46px,10.2vw,136px);line-height:.92;letter-spacing:-.03em}
+body[data-theme="paper"] .lifespan{grid-column:1/8;grid-row:3;
+  font-size:clamp(24px,3.6vw,42px);margin-top:8px}
+body[data-theme="paper"] .hero-quote{grid-column:1/6;grid-row:4;align-self:end;
+  border-top:1px solid var(--line);padding-top:20px;margin-top:26px}
+body[data-theme="paper"] .hero-fig{grid-column:9/13;grid-row:3/5;margin-top:14px}
+body[data-theme="paper"] .hero-fig .frame img{filter:grayscale(1)}
+@media(max-width:900px){
+  body[data-theme="paper"] .hero-in{grid-template-columns:1fr}
+  body[data-theme="paper"] .kicker,body[data-theme="paper"] h1,
+  body[data-theme="paper"] .lifespan,body[data-theme="paper"] .hero-quote,
+  body[data-theme="paper"] .hero-fig{grid-column:1/-1;grid-row:auto}
+  body[data-theme="paper"] .hero-fig{max-width:290px;margin-top:28px}
+}
+body[data-theme="paper"] .head{grid-template-columns:auto 1fr;align-items:start}
+body[data-theme="paper"] .head .num{color:var(--spot);font-variant-numeric:tabular-nums}
+body[data-theme="paper"] .head h2{text-transform:none}
+body[data-theme="paper"] .head .rule{background:var(--ink)}
+body[data-theme="paper"] .bio{columns:2;column-gap:38px}
+body[data-theme="paper"] .bio .item{break-inside:avoid}
+body[data-theme="paper"] .bio p{max-width:none}
+@media(max-width:840px){body[data-theme="paper"] .bio{columns:1}}
+body[data-theme="paper"] .tl-year{color:var(--ink);font-variant-numeric:tabular-nums}
+body[data-theme="paper"] .gal{grid-template-columns:repeat(12,1fr);gap:24px}
+body[data-theme="paper"] .shot{grid-column:span 4}
+body[data-theme="paper"] .shot:nth-child(7n+1){grid-column:span 7}
+body[data-theme="paper"] .shot:nth-child(7n+2){grid-column:span 5}
+body[data-theme="paper"] .shot .frame,
+body[data-theme="paper"] .shot:nth-child(3n+1) .frame,
+body[data-theme="paper"] .shot:nth-child(3n) .frame{aspect-ratio:4/5}
+body[data-theme="paper"] .shot:nth-child(7n+1) .frame{aspect-ratio:16/10}
+body[data-theme="paper"] .shot:nth-child(7n+2) .frame{aspect-ratio:4/3}
+body[data-theme="paper"] .shot .frame img{filter:grayscale(1)}
+body[data-theme="paper"] .shot .frame:hover img{filter:none;transform:none}
+body[data-theme="paper"] .shot .n{display:block;color:var(--soft);mix-blend-mode:normal;
+  position:static;padding-bottom:6px}
+body[data-theme="paper"] .shot figcaption{border-top:1px solid var(--line);
+  margin-top:10px;padding-top:9px}
+@media(max-width:840px){
+  body[data-theme="paper"] .gal{grid-template-columns:repeat(2,1fr)}
+  body[data-theme="paper"] .shot,
+  body[data-theme="paper"] .shot:nth-child(7n+1),
+  body[data-theme="paper"] .shot:nth-child(7n+2){grid-column:span 1}
+}
+body[data-theme="paper"] .vbox{border:1px solid var(--line)}
+body[data-theme="paper"] .mem{display:grid;grid-template-columns:1fr;gap:0}
+body[data-theme="paper"] .memo{display:grid;grid-template-columns:200px 1fr;gap:30px;
+  padding:24px 0;border-bottom:1px solid var(--line)}
+body[data-theme="paper"] .memo:first-child{border-top:1px solid var(--line)}
+body[data-theme="paper"] .memo .who{order:-1}
+body[data-theme="paper"] .memo .who b{display:block;font-size:17px}
+body[data-theme="paper"] .memo .who span{display:block}
+body[data-theme="paper"] .memo p{margin:0}
+@media(max-width:640px){body[data-theme="paper"] .memo{grid-template-columns:1fr;gap:8px}}
+body[data-theme="paper"] .farewell .ftext{font-family:var(--serif)}
+body[data-theme="paper"] footer{border-top:1px solid var(--ink)}
+/* @end */
+
+/* стрелки ленты — только там, где лента */
+.arrows{display:none;gap:9px;margin-top:16px}
+.arrows button{width:42px;height:42px;border:1px solid var(--line);background:none;
+  cursor:pointer;font-size:17px;transition:.2s}
+.arrows button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ================================================================ */
+/* РЕДАКТОР                                                         */
+/* ================================================================ */
+.editbar{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;
+  gap:8px;padding:7px;background:var(--panel);border:1px solid var(--line);
+  border-radius:100px;box-shadow:0 18px 40px -22px rgba(0,0,0,.55);max-width:calc(100vw - 36px)}
+.editbar button{border:0;background:none;cursor:pointer;padding:9px 16px;border-radius:100px;
+  font-family:var(--micro);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  white-space:nowrap;transition:.2s}
+.editbar button:hover{background:var(--tint)}
+.editbar .primary{background:var(--ink);color:var(--bg)}
+.editbar .primary:hover{opacity:.85;background:var(--ink)}
+.editbar .grp{display:none;align-items:center;gap:4px}
+body.editing .editbar .grp{display:flex}
+.editbar .st{font-family:var(--micro);font-size:11px;color:var(--soft);
+  padding-right:10px;white-space:nowrap}
+@media(max-width:700px){
+  .editbar{left:12px;right:12px;bottom:12px;justify-content:center;flex-wrap:wrap;border-radius:14px}
+  .editbar .st{width:100%;text-align:center;padding:0 0 4px}
+}
+
+body.editing [data-bind]{outline:1px dashed var(--hair);outline-offset:3px;
+  border-radius:2px;min-width:1.5em;min-height:1em;cursor:text;transition:outline-color .2s}
+body.editing [data-bind]:hover{outline-color:var(--accent)}
+body.editing [data-bind]:focus{outline:2px solid var(--accent);outline-offset:3px}
+body.editing [data-bind]:empty::before{content:attr(data-ph);color:var(--soft);opacity:.65}
+
+.tools{display:none;gap:4px;position:absolute;z-index:4;top:8px;right:8px}
+body.editing .item{position:relative}
+body.editing .item>.tools{display:flex}
+.tools button{width:30px;height:30px;padding:0;border:1px solid var(--line);
+  background:var(--panel);cursor:pointer;font-size:13px;line-height:1;
+  border-radius:4px;opacity:.55;transition:.18s}
+.tools button:hover{opacity:1;border-color:var(--accent);color:var(--accent)}
+.tools button[data-act="pic"]{width:auto;padding:0 9px;font-family:var(--micro);
+  font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+
+.editonly{display:none}
+body.editing .editonly{display:block}
+body.editing .hideonedit{display:none}
+.add{display:none;width:100%;margin-top:16px;padding:14px;cursor:pointer;
+  border:1px dashed var(--hair);background:none;border-radius:var(--radius);
+  font-family:var(--micro);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--soft);transition:.2s}
+body.editing .add{display:block}
+.add:hover{border-color:var(--accent);color:var(--accent)}
+.srcrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;
+  font-family:var(--micro);font-size:11px;letter-spacing:.06em;color:var(--soft)}
+.srcrow [data-bind]{font-family:var(--micro);font-size:11.5px;letter-spacing:0;
+  color:var(--ink);background:var(--tint);padding:4px 8px;border-radius:3px;
+  word-break:break-all;max-width:100%}
+.srcrow button{border:1px solid var(--line);background:var(--panel);cursor:pointer;
+  padding:5px 11px;border-radius:3px;font-family:var(--micro);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase}
+.srcrow button:hover{border-color:var(--accent);color:var(--accent)}
+.drop{outline:2px solid var(--accent) !important;outline-offset:4px}
+</style>
+</head>
+
+<body data-theme="warm">
+<div class="grain"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><b id="brandName"></b><span class="micro" id="brandYears"></span></a>
+    <menu id="nav"></menu>
+    <!-- @switcher -->
+    <div class="themes" id="themes">
+      <button data-theme="warm">Свет</button>
+      <button data-theme="noir">Ночь</button>
+      <button data-theme="paper">Бумага</button>
+    </div>
+    <!-- @end -->
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div class="hero-in">
+      <div class="hero-type">
+        <p class="kicker micro"><span data-bind="role" data-ph="профессия"></span><span data-bind="place" data-ph="город"></span></p>
+        <h1 data-bind="name" data-ph="Имя"></h1>
+        <p class="lifespan" data-bind="years" data-ph="годы жизни"></p>
+        <blockquote class="hero-quote"><p data-bind="epitaph" data-ph="эпитафия"></p></blockquote>
+      </div>
+      <figure class="hero-fig">
+        <div class="frame"><img id="portrait" alt=""></div>
+        <figcaption class="micro"><span data-bind="born" data-ph="дата рождения"></span> — <span data-bind="died" data-ph="дата смерти"></span></figcaption>
+        <div class="editonly">
+          <div class="srcrow">
+            <span>Портрет:</span>
+            <button data-act="portrait">Загрузить фото</button>
+            <button data-act="cover">Фон обложки</button>
+            <button data-act="clearpic">Очистить</button>
+          </div>
+        </div>
+      </figure>
+    </div>
+    <div class="hero-foot micro">
+      <span id="heroDates"></span>
+      <a class="cue" href="#about">Дальше <i></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <div class="wrap rv">
+    <div class="head"><span class="num">01</span><h2 data-h="about"></h2><span class="rule"></span></div>
+    <div class="about">
+      <div>
+        <div class="bio" id="bio"></div>
+        <button class="add" data-add="about">+ Добавить абзац</button>
+      </div>
+      <div>
+        <div class="facts" id="facts"></div>
+        <button class="add" data-add="facts">+ Добавить факт</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="timeline">
+  <div class="wrap rv">
+    <div class="head"><span class="num">02</span><h2 data-h="timeline"></h2><span class="rule"></span></div>
+    <div class="tl" id="tl"></div>
+    <button class="add" data-add="timeline">+ Добавить событие</button>
+  </div>
+</section>
+
+<section class="block" id="gallery">
+  <div class="wrap rv">
+    <div class="head"><span class="num">03</span><h2 data-h="gallery"></h2><span class="rule"></span></div>
+    <div class="gal" id="gal"></div>
+    <div class="arrows"><button id="gPrev">&#8249;</button><button id="gNext">&#8250;</button></div>
+    <button class="add" data-add="gallery">+ Добавить фотографии (можно перетащить файлы сюда)</button>
+  </div>
+</section>
+
+<section class="block" id="video">
+  <div class="wrap rv">
+    <div class="head"><span class="num">04</span><h2 data-h="video"></h2><span class="rule"></span></div>
+    <div class="videos" id="videos"></div>
+    <button class="add" data-add="videos">+ Добавить видео</button>
+  </div>
+</section>
+
+<section class="block" id="memories">
+  <div class="wrap rv">
+    <div class="head"><span class="num">05</span><h2 data-h="memories"></h2><span class="rule"></span></div>
+    <div class="mem" id="mem"></div>
+    <button class="add" data-add="memories">+ Добавить воспоминание</button>
+  </div>
+</section>
+
+<section class="block" id="farewell">
+  <div class="wrap rv">
+    <div class="head"><span class="num">06</span><h2 data-h="farewell"></h2><span class="rule"></span></div>
+    <div class="farewell">
+      <p class="ftext" data-bind="farewell.text" data-ph="текст о прощании"></p>
+      <div class="fmeta">
+        <div><span class="micro">Дата</span><b data-bind="farewell.date" data-ph="дата"></b></div>
+        <div><span class="micro">Место</span><b data-bind="farewell.place" data-ph="место"></b></div>
+        <div class="editonly"><span class="micro">Ссылка на карту</span><b data-bind="farewell.mapUrl" data-ph="можно оставить пустым"></b></div>
+        <div id="mapRow" class="hideonedit"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fname" id="fName"></div>
+    <div class="micro" id="fYears"></div>
+    <div class="micro editonly">
+      Почта: <b data-bind="contact.email" data-ph="—"></b> · Телефон: <b data-bind="contact.phone" data-ph="—"></b>
+    </div>
+    <div class="micro hideonedit" id="fContact"></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb">
+  <button class="close" aria-label="Закрыть">&times;</button>
+  <button class="prev" aria-label="Предыдущая">&#8249;</button>
+  <img id="lbImg" alt="">
+  <div class="cap micro" id="lbCap"></div>
+  <button class="next" aria-label="Следующая">&#8250;</button>
+</div>
+
+<div class="editbar" id="editbar">
+  <span class="st" id="edStatus"></span>
+  <button id="edToggle" class="primary">Редактировать</button>
+  <span class="grp">
+    <button id="edSave">Сохранить файл</button>
+    <button id="edReset">Сбросить</button>
+  </span>
+</div>
+
+<script>
+/* ================================================================ */
+/*  ДВИЖОК И РЕДАКТОР. Править не нужно.                            */
+/* ================================================================ */
+
+/* слепок исходного файла — из него собирается сохраняемый index.html */
+const TEMPLATE = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+/* тема по умолчанию: "warm" | "noir" | "paper" */
+const DEFAULT_THEME = "warm";
+
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s??"").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+
+const getPath = (o,p) => p.split('.').reduce((a,k)=>a==null?a:a[k], o);
+function setPath(o,p,v){ const k=p.split('.'), last=k.pop(); let t=o; for(const x of k) t=t[x]; t[last]=v; }
+
+/* ---------- заглушка вместо отсутствующего фото ---------- */
+function ph(label,w,h){
+  const cs=getComputedStyle(document.body);
+  const a=cs.getPropertyValue('--ph-a').trim()||'#ddd';
+  const b=cs.getPropertyValue('--ph-b').trim()||'#bbb';
+  const ink=cs.getPropertyValue('--ph-ink').trim()||'#888';
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'+
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">'+
+    '<stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs>'+
+    '<rect width="100%" height="100%" fill="url(#g)"/>'+
+    '<rect x="14" y="14" width="'+(w-28)+'" height="'+(h-28)+'" fill="none" stroke="'+ink+'" stroke-opacity=".35"/>'+
+    '<text x="50%" y="50%" font-family="Georgia, serif" font-size="'+Math.round(Math.min(w,h)/9)+
+    '" fill="'+ink+'" text-anchor="middle" dominant-baseline="middle">'+esc(label)+'</text></svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+const pic = (src,label,w,h) => src ? src : ph(label,w,h);
+
+/* ---------- черновик ---------- */
+const KEY = 'pamyat:' + location.pathname;
+let draftLoaded = false;
+try{
+  const raw = localStorage.getItem(KEY);
+  if (raw){ Object.assign(DATA, JSON.parse(raw)); draftLoaded = true; }
+}catch(e){}
+const saveDraft = () => { try{ localStorage.setItem(KEY, JSON.stringify(DATA)); }catch(e){}
+  status(draftLoaded ? 'Черновик сохранён' : 'Черновик сохранён'); draftLoaded = true; };
+function status(t){ $('#edStatus').textContent = t || ''; }
+
+/* ---------- вспомогательное для списков ---------- */
+function tools(list,i,extra){
+  const b=(act,ch,t)=>'<button data-act="'+act+'" data-list="'+list+'" data-i="'+i+'" title="'+t+'">'+ch+'</button>';
+  return '<div class="tools">'+(extra?b(extra,'Файл','Заменить файл'):'')+
+    b('up','&#8593;','Выше')+b('down','&#8595;','Ниже')+b('del','&#10005;','Удалить')+'</div>';
+}
+const bind = (path,ph2,tag,cls) => '<'+(tag||'span')+(cls?' class="'+cls+'"':'')+
+  ' data-bind="'+path+'" data-ph="'+esc(ph2)+'"></'+(tag||'span')+'>';
+
+/* ================================================================ */
+/*  ОТРИСОВКА                                                       */
+/* ================================================================ */
+function renderChrome(){
+  document.title = 'Памяти · ' + DATA.short;
+  $('#brandName').textContent  = DATA.short;
+  $('#brandYears').textContent = DATA.years;
+  $('#nav').innerHTML = Object.entries(DATA.labels)
+    .map(([id,t]) => '<li><a href="#'+id+'">'+esc(t)+'</a></li>').join('');
+  $$('[data-h]').forEach(el => el.textContent = DATA.labels[el.dataset.h]);
+  $('#heroDates').textContent = DATA.born + ' — ' + DATA.died;
+  $('#portrait').src = pic(DATA.portrait, DATA.short, 900, 1150);
+  $('#portrait').alt = DATA.name;
+  $('#heroBg').style.setProperty('--cover',
+    DATA.cover ? 'url("'+DATA.cover+'")' : 'linear-gradient(150deg,#1e2024,#0a0a0b)');
+  document.body.classList.toggle('has-cover', !!DATA.cover);
+  $('#fName').textContent  = DATA.name;
+  $('#fYears').textContent = DATA.born + ' — ' + DATA.died;
+  $('#fContact').innerHTML = [
+    DATA.contact.email ? '<a href="mailto:'+esc(DATA.contact.email)+'">'+esc(DATA.contact.email)+'</a>' : '',
+    DATA.contact.phone ? esc(DATA.contact.phone) : ''
+  ].filter(Boolean).join(' · ');
+  $('#mapRow').innerHTML = DATA.farewell.mapUrl
+    ? '<a class="micro" href="'+esc(DATA.farewell.mapUrl)+'" target="_blank" rel="noopener">Показать на карте &#8599;</a>' : '';
+}
+
+function renderBio(){
+  $('#bio').innerHTML = DATA.about.map((p,i) =>
+    '<div class="item">'+bind('about.'+i,'текст абзаца','p')+tools('about',i)+'</div>').join('');
+  $('#facts').innerHTML = DATA.facts.map((f,i) =>
+    '<div class="fact item"><span class="micro">'+bind('facts.'+i+'.k','название')+'</span>'+
+    '<b>'+bind('facts.'+i+'.v','значение')+'</b>'+tools('facts',i)+'</div>').join('');
+}
+
+function renderTimeline(){
+  $('#tl').innerHTML = DATA.timeline.map((t,i) =>
+    '<div class="tl-item item"><div class="tl-year">'+bind('timeline.'+i+'.year','год')+'</div>'+
+    '<div><div class="tl-title">'+bind('timeline.'+i+'.title','событие')+'</div>'+
+    '<div class="tl-text">'+bind('timeline.'+i+'.text','подробности')+'</div></div>'+
+    tools('timeline',i)+'</div>').join('');
+}
+
+function renderGallery(){
+  $('#gal').innerHTML = DATA.gallery.map((g,i) =>
+    '<figure class="shot item" data-i="'+i+'">'+
+    '<span class="n">'+pad(i+1)+'</span>'+
+    '<div class="frame"><img alt="'+esc(g.caption)+'" loading="lazy" src="'+
+      pic(g.src, g.year || 'фото', 900, 1120)+'"></div>'+
+    '<figcaption><b>'+bind('gallery.'+i+'.caption','подпись')+'</b>'+
+    '<span class="micro">'+bind('gallery.'+i+'.year','год')+'</span></figcaption>'+
+    '<div class="editonly"><div class="srcrow"><span>Файл:</span>'+
+      bind('gallery.'+i+'.src','media/имя.jpg')+'</div></div>'+
+    tools('gallery',i,'pic')+'</figure>').join('');
+}
+
+function renderVideos(){
+  $('#videos').innerHTML = DATA.videos.map((v,i) => {
+    let box;
+    if (v.youtube) box = '<iframe src="https://www.youtube.com/embed/'+esc(v.youtube)+
+      '" allowfullscreen loading="lazy" title="'+esc(v.title)+'"><\/iframe>';
+    else if (v.src) box = '<video controls preload="metadata"'+
+      (v.poster ? ' poster="'+esc(v.poster)+'"' : '')+' src="'+esc(v.src)+'"><\/video>';
+    else box = '<div class="vstub"><div class="play">&#9658;</div>'+
+      '<div>Видео пока не добавлено.<br>В режиме редактирования укажите файл или ссылку.</div></div>';
+    return '<figure class="vcard item"><div class="vbox">'+box+'</div>'+
+      '<figcaption class="vmeta"><h3>'+bind('videos.'+i+'.title','название')+'</h3>'+
+      '<p>'+bind('videos.'+i+'.text','описание')+'</p>'+
+      '<div class="editonly"><div class="srcrow"><span>Файл:</span>'+
+        bind('videos.'+i+'.src','media/video.mp4')+
+        '<span>YouTube:</span>'+bind('videos.'+i+'.youtube','ID ролика')+
+        '<span>Обложка:</span>'+bind('videos.'+i+'.poster','media/poster.jpg')+
+      '</div></div></figcaption>'+tools('videos',i)+'</figure>';
+  }).join('');
+}
+
+function renderMemories(){
+  $('#mem').innerHTML = DATA.memories.map((m,i) =>
+    '<figure class="memo item"><p>'+bind('memories.'+i+'.text','текст воспоминания')+'</p>'+
+    '<figcaption class="who"><b>'+bind('memories.'+i+'.author','имя')+'</b> '+
+    '<span class="micro">'+bind('memories.'+i+'.relation','кем приходится')+'</span></figcaption>'+
+    tools('memories',i)+'</figure>').join('');
+}
+
+function fillBinds(){
+  $$('[data-bind]').forEach(el => {
+    const v = getPath(DATA, el.dataset.bind);
+    if (el.textContent !== (v ?? '')) el.textContent = v ?? '';
+  });
+}
+
+function renderAll(){
+  renderChrome(); renderBio(); renderTimeline();
+  renderGallery(); renderVideos(); renderMemories();
+  fillBinds(); applyEditing();
+  if (EDITING) revealAll();
+}
+
+/* ================================================================ */
+/*  ГАЛЕРЕЯ: просмотр во весь экран                                 */
+/* ================================================================ */
+let idx = 0;
+const lb = $('#lb');
+function openLb(i){
+  if (!DATA.gallery.length) return;
+  idx = (i + DATA.gallery.length) % DATA.gallery.length;
+  const g = DATA.gallery[idx];
+  $('#lbImg').src = pic(g.src, g.year || 'фото', 1500, 1050);
+  $('#lbCap').textContent = [g.caption, g.year].filter(Boolean).join(' · ');
+  lb.classList.add('on');
+}
+$('#gal').addEventListener('click', e => {
+  if (EDITING) return;
+  const f = e.target.closest('.shot'); if (f) openLb(+f.dataset.i);
+});
+$('.close',lb).onclick = () => lb.classList.remove('on');
+$('.prev',lb).onclick  = () => openLb(idx-1);
+$('.next',lb).onclick  = () => openLb(idx+1);
+lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('on'); });
+addEventListener('keydown', e => {
+  if (!lb.classList.contains('on')) return;
+  if (e.key === 'Escape')     lb.classList.remove('on');
+  if (e.key === 'ArrowLeft')  openLb(idx-1);
+  if (e.key === 'ArrowRight') openLb(idx+1);
+});
+const strip = $('#gal');
+const stepX = () => Math.min(strip.clientWidth*.72, 430);
+$('#gPrev').onclick = () => strip.scrollBy({left:-stepX(), behavior:'smooth'});
+$('#gNext').onclick = () => strip.scrollBy({left: stepX(), behavior:'smooth'});
+
+/* ================================================================ */
+/*  РЕДАКТИРОВАНИЕ                                                  */
+/* ================================================================ */
+let EDITING = false;
+
+function applyEditing(){
+  $$('[data-bind]').forEach(el => {
+    if (EDITING) el.setAttribute('contenteditable','true');
+    else el.removeAttribute('contenteditable');
+  });
+}
+function setEditing(on){
+  EDITING = on;
+  document.body.classList.toggle('editing', on);
+  $('#edToggle').textContent = on ? 'Готово' : 'Редактировать';
+  $('#edToggle').classList.toggle('primary', !on);
+  applyEditing();
+  if (on){ revealAll(); status(draftLoaded ? 'Черновик в браузере' : 'Правьте текст прямо на странице'); }
+  else { renderAll(); status(draftLoaded ? 'Есть несохранённые правки' : ''); }
+}
+$('#edToggle').onclick = () => setEditing(!EDITING);
+
+/* ввод текста */
+document.addEventListener('input', e => {
+  const el = e.target.closest('[data-bind]'); if (!el) return;
+  setPath(DATA, el.dataset.bind, el.textContent);
+  const p = el.dataset.bind;
+  if (p === 'name' || p === 'short' || p === 'years') renderChrome();
+  saveDraft();
+});
+/* вставка — только текстом */
+document.addEventListener('paste', e => {
+  const el = e.target.closest('[data-bind]'); if (!el || !EDITING) return;
+  e.preventDefault();
+  document.execCommand('insertText', false, (e.clipboardData||window.clipboardData).getData('text'));
+});
+/* Enter: в биографии — новый абзац, в остальном — выход из поля */
+document.addEventListener('keydown', e => {
+  const el = e.target.closest('[data-bind]');
+  if (el && e.key === 'Enter'){
+    e.preventDefault();
+    const m = /^about\.(\d+)$/.exec(el.dataset.bind);
+    if (m){ DATA.about.splice(+m[1]+1, 0, ''); saveDraft(); renderAll();
+      const next = $('[data-bind="about.'+(+m[1]+1)+'"]'); if (next) next.focus(); }
+    else el.blur();
+  }
+  if ((e.ctrlKey||e.metaKey) && e.key.toLowerCase() === 'e'){ e.preventDefault(); setEditing(!EDITING); }
+  if ((e.ctrlKey||e.metaKey) && e.key.toLowerCase() === 's' && EDITING){ e.preventDefault(); saveFile(); }
+});
+
+/* кнопки у элементов списков */
+const BLANK = {
+  about:    () => '',
+  facts:    () => ({ k:'Новый факт', v:'' }),
+  timeline: () => ({ year:'', title:'Новое событие', text:'' }),
+  gallery:  () => ({ src:'', caption:'Новая фотография', year:'' }),
+  videos:   () => ({ src:'', youtube:'', poster:'', title:'Новое видео', text:'' }),
+  memories: () => ({ author:'', relation:'', text:'' })
+};
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const act = b.dataset.act, list = b.dataset.list, i = +b.dataset.i;
+  if (act === 'portrait'){ pickImages(u => { DATA.portrait = u; saveDraft(); renderAll(); }, false, 1400); return; }
+  if (act === 'cover'){    pickImages(u => { DATA.cover    = u; saveDraft(); renderAll(); }, false, 2000); return; }
+  if (act === 'clearpic'){ DATA.portrait = ''; DATA.cover = ''; saveDraft(); renderAll(); return; }
+  if (!list) return;
+  const arr = DATA[list];
+  if (act === 'del'){ if (!confirm('Удалить этот блок?')) return; arr.splice(i,1); }
+  if (act === 'up'   && i > 0)            arr.splice(i-1, 0, arr.splice(i,1)[0]);
+  if (act === 'down' && i < arr.length-1) arr.splice(i+1, 0, arr.splice(i,1)[0]);
+  if (act === 'pic'){ pickImages(u => { arr[i].src = u; saveDraft(); renderAll(); }, false, 1800); return; }
+  saveDraft(); renderAll();
+});
+/* кнопки «добавить» */
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-add]'); if (!b) return;
+  const list = b.dataset.add;
+  if (list === 'gallery'){
+    pickImages(u => { DATA.gallery.push({ src:u, caption:'', year:'' }); saveDraft(); renderAll(); }, true, 1800);
+    return;
+  }
+  DATA[list].push(BLANK[list]());
+  saveDraft(); renderAll();
+  const last = $$('[data-bind^="'+list+'."]').pop(); if (last) last.focus();
+});
+
+/* выбор картинок + уменьшение до разумного размера */
+function pickImages(cb, multiple, max){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = !!multiple;
+  inp.onchange = () => { [...inp.files].forEach(f => shrink(f, max||1800, cb)); };
+  inp.click();
+}
+function shrink(file, max, cb){
+  const fr = new FileReader();
+  fr.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      let w = im.naturalWidth, h = im.naturalHeight;
+      const k = Math.min(1, max / Math.max(w,h));
+      w = Math.round(w*k); h = Math.round(h*k);
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(im, 0, 0, w, h);
+      cb(c.toDataURL('image/jpeg', .82));
+    };
+    im.onerror = () => alert('Не удалось прочитать файл: ' + file.name);
+    im.src = fr.result;
+  };
+  fr.readAsDataURL(file);
+}
+/* перетаскивание файлов в галерею */
+const drop = $('#gallery');
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => {
+  if (!EDITING) return; e.preventDefault(); drop.classList.add('drop');
+}));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('drop')));
+drop.addEventListener('drop', e => {
+  if (!EDITING) return;
+  e.preventDefault();
+  const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
+  files.forEach(f => shrink(f, 1800, u => {
+    DATA.gallery.push({ src:u, caption:'', year:'' }); saveDraft(); renderAll();
+  }));
+});
+
+/* ---------- сохранение готового index.html ---------- */
+const q = s => JSON.stringify(String(s ?? '')).replace(/<\//g, '<\\/');
+function serialize(d){
+  const L = [];
+  const obj = (o, keys) => '{ ' + keys.map(k => k + ': ' + q(o[k])).join(', ') + ' }';
+  const list = (arr, fn) => arr.map((x,i) => '    ' + fn(x) + (i < arr.length-1 ? ',' : '')).join('\n');
+  L.push('const DATA = {');
+  L.push('');
+  L.push('  /* --- Шапка и обложка --- */');
+  ['name','short','years','born','died','role','place','epitaph'].forEach(k =>
+    L.push('  ' + (k+':').padEnd(10) + q(d[k]) + ','));
+  L.push('');
+  L.push('  portrait: ' + q(d.portrait) + ',');
+  L.push('  cover:    ' + q(d.cover) + ',');
+  L.push('');
+  L.push('  /* --- Биография: каждый абзац — отдельная строка в кавычках --- */');
+  L.push('  about: ['); L.push(list(d.about, p => q(p))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Короткие факты в колонке справа --- */');
+  L.push('  facts: ['); L.push(list(d.facts, f => obj(f,['k','v']))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Хронология жизни --- */');
+  L.push('  timeline: ['); L.push(list(d.timeline, t => obj(t,['year','title','text']))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Фотогалерея. Добавляйте строки по образцу --- */');
+  L.push('  gallery: ['); L.push(list(d.gallery, g => obj(g,['src','caption','year']))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Видео. Либо src (свой файл), либо youtube (ID ролика) --- */');
+  L.push('  videos: ['); L.push(list(d.videos, v => obj(v,['src','youtube','poster','title','text']))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Воспоминания близких --- */');
+  L.push('  memories: ['); L.push(list(d.memories, m => obj(m,['author','relation','text']))); L.push('  ],');
+  L.push('');
+  L.push('  /* --- Прощание и место памяти --- */');
+  L.push('  farewell: {');
+  L.push('    text:   ' + q(d.farewell.text) + ',');
+  L.push('    date:   ' + q(d.farewell.date) + ',');
+  L.push('    place:  ' + q(d.farewell.place) + ',');
+  L.push('    mapUrl: ' + q(d.farewell.mapUrl));
+  L.push('  },');
+  L.push('');
+  L.push('  /* --- Контакты семьи (можно оставить пустыми) --- */');
+  L.push('  contact: { email: ' + q(d.contact.email) + ', phone: ' + q(d.contact.phone) + ' },');
+  L.push('');
+  L.push('  /* --- Подписи разделов --- */');
+  L.push('  labels: {');
+  L.push('    ' + Object.entries(d.labels).map(([k,v]) => k + ': ' + q(v)).join(', '));
+  L.push('  }');
+  L.push('};');
+  return L.join('\n');
+}
+function saveFile(){
+  const open  = TEMPLATE.indexOf('<script id="data">');
+  const close = TEMPLATE.indexOf('<\/script>', open);
+  if (open < 0 || close < 0){ alert('Не удалось собрать файл: не найден блок данных.'); return; }
+  let out = TEMPLATE.slice(0, open) + '<script id="data">\n' + serialize(DATA) + '\n' + TEMPLATE.slice(close);
+  out = out.replace(/<body data-theme="[^"]*"/, '<body data-theme="' + document.body.dataset.theme + '"');
+  out = out.replace(/<title>[\s\S]*?<\/title>/, '<title>Памяти · ' + esc(DATA.short) + '</title>');
+  const blob = new Blob([out], { type:'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  const mb = (blob.size/1048576).toFixed(1);
+  status('Файл сохранён (' + mb + ' МБ)');
+}
+$('#edSave').onclick = saveFile;
+$('#edReset').onclick = () => {
+  if (!confirm('Отменить все правки и вернуться к тому, что записано в файле?')) return;
+  localStorage.removeItem(KEY); location.reload();
+};
+
+/* ================================================================ */
+/*  ТЕМЫ, ПОЯВЛЕНИЕ, МЕНЮ                                           */
+/* ================================================================ */
+const TKEY = 'pamyat-theme:' + location.pathname;
+function setTheme(t){
+  document.body.dataset.theme = t;
+  try{ localStorage.setItem(TKEY, t); }catch(e){}
+  $$('#themes button').forEach(b => b.classList.toggle('on', b.dataset.theme === t));
+  renderChrome(); renderGallery(); fillBinds(); applyEditing();
+}
+const themebar = $('#themes');
+if (themebar){
+  $$('#themes button').forEach(b => b.onclick = () => setTheme(b.dataset.theme));
+}
+
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')),
+  { threshold:.06, rootMargin:'0px 0px -8% 0px' });
+function revealAll(){ $$('.rv').forEach(el => el.classList.add('in')); }
+$$('.rv').forEach(el => io.observe(el));
+
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  $$('#nav a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#'+e.target.id));
+}), { rootMargin:'-25% 0px -68% 0px' });
+$$('section.block').forEach(s => spy.observe(s));
+
+/* ---------- запуск ---------- */
+renderAll();
+setTheme((()=>{ try{ return localStorage.getItem(TKEY) || DEFAULT_THEME; }catch(e){ return DEFAULT_THEME; } })());
+if (draftLoaded) status('Загружен черновик из браузера');
+</script>
+</body>
+</html>

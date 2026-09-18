@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Фото-заглушка">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#f5eee2"/>
+<stop offset="1" stop-color="#e5d8c4"/>
+</linearGradient>
+</defs>
+<rect width="800" height="600" fill="url(#bg)"/>
+<rect x="26" y="26" width="748" height="548" fill="none" stroke="#bb9a65" stroke-opacity=".4" stroke-width="2"/>
+<g fill="none" stroke="#bb9a65" stroke-opacity=".55" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+<rect x="310" y="228" width="180" height="134" rx="14"/>
+<circle cx="400" cy="295" r="40"/>
+<path d="M348 228l16-26h72l16 26"/>
+</g>
+<text x="400" y="432" text-anchor="middle" font-family="Jost, Arial, sans-serif" font-size="24" letter-spacing="5" fill="#9a8a74">ФОТО-ЗАГЛУШКА</text>
+<text x="400" y="474" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#7a6d5b">Фильм памяти на носителе</text>
+</svg>

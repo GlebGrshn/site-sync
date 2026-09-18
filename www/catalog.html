@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Каталог шкатулок — Помним</title>
+<meta name="description" content="Шкатулки ручной работы для флешки с фильмом памяти: военная, классика, книжка, выдвижная и мини. Цвет, отделка, гравировка.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<style>
+
+/* ---------- заголовок страницы ---------- */
+
+.container{
+max-width:1320px;
+margin:auto;
+padding:0 70px;
+}
+
+/* блок переехал в конец страницы, поэтому отступ сверху уже не нужен
+   для обхода фиксированной шапки — её теперь обходит .boxes */
+.page-head{
+padding:70px 0 90px;
+text-align:center;
+border-top:1px solid var(--line);
+}
+
+.subtitle{
+font-size:13px;
+letter-spacing:.22em;
+text-transform:uppercase;
+color:var(--gold);
+margin-bottom:18px;
+}
+
+.page-head h1{
+font-family:"Cormorant Garamond",serif;
+font-size:64px;
+font-weight:300;
+line-height:1.1;
+margin-bottom:22px;
+}
+
+.description{
+max-width:760px;
+margin:auto;
+color:var(--muted);
+line-height:1.9;
+font-size:18px;
+}
+
+/* ---------- шкатулки ---------- */
+
+.boxes{
+padding:0 0 90px;
+}
+
+.boxes-head{
+text-align:center;
+padding:150px 0 10px;   /* 82px фиксированной шапки плюс воздух */
+}
+
+.boxes-head h2{
+font-family:"Cormorant Garamond",serif;
+font-size:54px;
+font-weight:300;
+margin-bottom:18px;
+}
+
+.box{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:start;
+background:var(--card);
+border-radius:24px;
+padding:34px;
+margin-top:34px;
+box-shadow:0 15px 40px rgba(0,0,0,.05);
+}
+
+.box-photo{
+border-radius:18px;
+overflow:hidden;
+background:#f1e8da;
+aspect-ratio:4/3;
+}
+
+.box-photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:opacity .2s;
+}
+
+.box-thumbs{
+display:flex;
+gap:10px;
+margin-top:12px;
+flex-wrap:wrap;
+}
+
+.box-thumbs button{
+width:72px;
+height:56px;
+padding:0;
+border:2px solid transparent;
+border-radius:10px;
+overflow:hidden;
+background:#f1e8da;
+cursor:pointer;
+transition:.2s;
+}
+
+.box-thumbs button img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.box-thumbs button[aria-current="true"]{
+border-color:var(--gold);
+}
+
+/* видео живёт в той же карусели, что и фото */
+.box-photo video{
+width:100%;
+height:100%;
+display:block;
+object-fit:contain;
+background:#17150f;
+}
+
+/* на миниатюре ролика — треугольник «плей» поверх кадра */
+.box-thumbs button.thumb-video{
+position:relative;
+}
+
+.box-thumbs button.thumb-video::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.42);
+}
+
+.box-thumbs button.thumb-video::before{
+content:"";
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-40%,-50%);
+border-style:solid;
+border-width:8px 0 8px 13px;
+border-color:transparent transparent transparent #fff;
+z-index:1;
+}
+
+.box-info h3{
+font-family:"Cormorant Garamond",serif;
+font-size:36px;
+font-weight:400;
+margin-bottom:14px;
+}
+
+.box-info>p{
+font-size:17px;
+line-height:1.8;
+color:var(--muted);
+margin-bottom:26px;
+}
+
+.mod-group{
+margin-bottom:22px;
+}
+
+.mod-title{
+font-size:13px;
+letter-spacing:.14em;
+text-transform:uppercase;
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.mod-options{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.chip{
+padding:11px 20px;
+border:1px solid var(--line);
+border-radius:100px;
+background:#fcfbf9;
+font-family:Jost,sans-serif;
+font-size:15px;
+color:var(--text);
+cursor:pointer;
+transition:.2s;
+}
+
+.chip:hover{
+border-color:var(--gold);
+}
+
+.chip[aria-pressed="true"]{
+background:var(--gold);
+border-color:var(--gold);
+color:#fff;
+}
+
+.box-orders{
+display:inline-block;
+margin-bottom:16px;
+padding:7px 16px;
+border-radius:100px;
+background:#f6f1e8;
+font-size:14px;
+color:var(--muted);
+}
+
+.box-orders b{
+color:var(--gold);
+font-weight:500;
+}
+
+.box-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:8px;
+}
+
+.box-actions .price-btn{
+margin-top:0;
+}
+
+.reviews-btn{
+padding:16px 30px;
+border:1px solid var(--line);
+border-radius:100px;
+background:#fff;
+font-family:Jost,sans-serif;
+font-size:14px;
+letter-spacing:.06em;
+color:var(--text);
+cursor:pointer;
+transition:.25s;
+}
+
+.reviews-btn:hover{
+border-color:var(--gold);
+color:var(--gold);
+}
+
+.review{
+padding:20px 0;
+border-bottom:1px solid var(--line);
+text-align:left;
+}
+
+.review:last-child{
+border-bottom:none;
+}
+
+.review-name{
+font-family:"Cormorant Garamond",serif;
+font-size:24px;
+margin-bottom:6px;
+}
+
+.review-text{
+color:var(--muted);
+line-height:1.7;
+font-size:16px;
+}
+
+.box-note{
+margin-top:14px;
+font-size:14px;
+line-height:1.6;
+color:var(--muted);
+}
+
+@media(max-width:1100px){
+
+.box{
+grid-template-columns:1fr;
+gap:26px;
+padding:22px;
+}
+
+.boxes-head h2,
+.catalog-head h2{font-size:38px;}
+
+.box-info h3{font-size:30px;}
+
+}
+
+/* ---------- узкие экраны ---------- */
+
+@media(max-width:1100px){
+
+.page-head{padding:50px 0 60px;}
+
+.page-head h1{font-size:38px;}
+
+.boxes-head{padding:110px 0 10px;}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html" class="logo">Помним</a>
+
+<ul class="menu">
+<li><a href="films.html">Фильмы памяти</a></li>
+<li><a href="sites.html">Сайты</a></li>
+<li><a href="catalog.html" class="active">Каталог</a></li>
+</ul>
+
+<button class="header-order" id="headerOrder">Заказать</button>
+
+</nav>
+
+<section class="boxes" id="boxes">
+
+<div class="container">
+
+<div class="boxes-head">
+
+<div class="subtitle">Шкатулки</div>
+
+<h2>Шкатулки для памятных вещей</h2>
+
+<p class="description">
+Ручная работа из фанеры и массива. Внутрь кладётся флешка с фильмом памяти, а рядом помещаются фотографии, письма и награды. Цвет, отделку и гравировку выбираете сами — снимки меняются вместе с выбором.
+</p>
+
+</div>
+
+<div id="boxList"></div>
+
+<noscript>
+<p class="box-note">Для выбора цвета и отделки нужен включённый JavaScript.
+Позвоните нам, и мы подберём вариант вместе.</p>
+</noscript>
+
+</div>
+
+</section>
+
+<header class="page-head">
+
+<div class="container">
+
+<div class="subtitle">Каталог</div>
+
+<h1>Шкатулки ручной работы</h1>
+
+<p class="description">
+Внутри шкатулки — флешка с фильмом памяти о близком человеке, рядом фотографии, письма и награды. Выберите то, что ближе вашей семье, и оставьте номер: перезвоним и назовём цену.
+</p>
+
+</div>
+
+</header>
+
+<footer>
+
+<div class="footer-logo">Помним</div>
+
+<div class="footer-links">
+<a href="films.html">Фильмы памяти</a>
+<a href="sites.html">Сайты</a>
+<a href="catalog.html">Каталог</a>
+<a href="#">Политика конфиденциальности</a>
+</div>
+
+</footer>
+
+<div class="modal" id="priceModal" role="dialog" aria-modal="true" aria-labelledby="priceTitle">
+
+<div class="modal-window">
+
+<button class="close" id="priceClose" aria-label="Закрыть">&times;</button>
+
+<div id="priceContent">
+
+<h2 id="priceTitle">Узнать цену</h2>
+
+<p class="modal-lead">
+Оставьте номер телефона — перезвоним и назовём стоимость.<br>
+<b id="priceItem"></b>
+<span id="priceOptions"></span>
+</p>
+
+<form id="priceForm" novalidate>
+
+<input type="hidden" name="item" id="priceItemField">
+<input type="hidden" name="options" id="priceOptionsField">
+
+<label class="field">
+<span>Как к вам обращаться</span>
+<input type="text" name="name" placeholder="Имя" autocomplete="name" maxlength="60" required>
+</label>
+
+<label class="field">
+<span>Телефон</span>
+<input type="tel" name="phone" placeholder="+7 900 000-00-00" autocomplete="tel" inputmode="tel" maxlength="30" required>
+</label>
+
+<div class="trap" aria-hidden="true">
+<label>Не заполняйте это поле
+<input type="text" name="website" tabindex="-1" autocomplete="off">
+</label>
+</div>
+
+<label class="consent">
+<input type="checkbox" name="consent" required>
+<span>Согласен на обработку персональных данных и получение обратного звонка</span>
+</label>
+
+<button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
+
+<div class="form-note" id="formNote" role="status" aria-live="polite"></div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ---------- модальное окно ---------- */
+
+const modal = document.getElementById("priceModal");
+const modalContent = document.getElementById("priceContent");
+const closeBtn = document.getElementById("priceClose");
+
+/* запоминаем исходную разметку: после успешной отправки содержимое окна
+   подменяется благодарностью, и к следующему открытию форму надо вернуть */
+const initialMarkup = modalContent.innerHTML;
+let lastFocused = null;
+
+function openModal(itemName, optionsText){
+lastFocused = document.activeElement;
+modalContent.innerHTML = initialMarkup;
+bindForm();
+document.getElementById("priceItem").textContent = itemName;
+document.getElementById("priceItemField").value = itemName;
+
+/* выбранные модификаторы: показываем клиенту и кладём в заявку */
+const options = optionsText || "";
+document.getElementById("priceOptions").textContent = options ? " — " + options : "";
+document.getElementById("priceOptionsField").value = options;
+
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+const first = modalContent.querySelector('input[name="name"]');
+if(first){ first.focus(); }
+}
+
+/* то же окно, но вместо формы — список отзывов;
+   при следующем «Узнать цену» форма вернётся из initialMarkup */
+function openReviews(product){
+lastFocused = document.activeElement;
+
+const wrap = document.createElement("div");
+
+const title = document.createElement("h2");
+title.textContent = "Отзывы";
+
+const lead = document.createElement("p");
+lead.className = "modal-lead";
+lead.textContent = product.name + " — заказов: " + product.orders;
+
+wrap.append(title, lead);
+
+product.reviews.forEach(who => {
+const item = document.createElement("div");
+item.className = "review";
+const name = document.createElement("div");
+name.className = "review-name";
+name.textContent = who;
+const text = document.createElement("div");
+text.className = "review-text";
+text.textContent = REVIEW_TEXT;
+item.append(name, text);
+wrap.append(item);
+});
+
+modalContent.replaceChildren(wrap);
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+}
+
+function closeModal(){
+modal.classList.remove("active");
+document.body.style.overflow = "";
+if(lastFocused){ lastFocused.focus(); }
+}
+
+document.querySelectorAll(".price-btn").forEach(button => {
+button.addEventListener("click", () => openModal(button.dataset.item));
+});
+
+closeBtn.addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+if(event.target === modal){ closeModal(); }
+});
+
+document.addEventListener("keydown", event => {
+if(event.key === "Escape" && modal.classList.contains("active")){ closeModal(); }
+});
+
+/* ---------- отправка заявки ---------- */
+
+function digitsOf(value){
+return (value.match(/\d/g) || []).length;
+}
+
+function bindForm(){
+
+const form = document.getElementById("priceForm");
+if(!form){ return; }
+
+const note = document.getElementById("formNote");
+const submitBtn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async event => {
+
+event.preventDefault();
+
+const data = new FormData(form);
+const name = (data.get("name") || "").toString().trim();
+const phone = (data.get("phone") || "").toString().trim();
+
+note.className = "form-note";
+note.textContent = "";
+
+if(name.length < 2){
+note.className = "form-note error";
+note.textContent = "Напишите, как к вам обращаться.";
+form.name.focus();
+return;
+}
+
+if(digitsOf(phone) < 10){
+note.className = "form-note error";
+note.textContent = "Проверьте номер телефона — в нём должно быть не меньше 10 цифр.";
+form.phone.focus();
+return;
+}
+
+if(!data.get("consent")){
+note.className = "form-note error";
+note.textContent = "Нужно согласие на обработку персональных данных.";
+return;
+}
+
+submitBtn.disabled = true;
+submitBtn.textContent = "Отправляем…";
+
+try{
+
+const response = await fetch("lead.php", { method: "POST", body: data });
+const result = await response.json();
+
+if(!response.ok || !result.ok){
+throw new Error(result.error || "Сервер не принял заявку");
+}
+
+/* имя пришло от пользователя — собираем блок через textContent,
+   чтобы оно не могло попасть в разметку как HTML */
+const done = document.createElement("div");
+done.className = "done";
+const title = document.createElement("h3");
+title.textContent = "Заявка принята";
+const text = document.createElement("p");
+text.textContent = `Спасибо, ${name}. Мы перезвоним на указанный номер в ближайшее время.`;
+done.append(title, text);
+modalContent.replaceChildren(done);
+
+}catch(error){
+
+submitBtn.disabled = false;
+submitBtn.textContent = "Отправить";
+note.className = "form-note error";
+note.textContent = "Не получилось отправить заявку. Позвоните нам или попробуйте ещё раз.";
+console.error(error);
+
+}
+
+});
+
+}
+
+/* ---------- кнопка «Заказать» в шапке ---------- */
+
+document.getElementById("headerOrder").addEventListener("click", () => {
+openModal("Заказ фильма памяти");
+});
+
+/* ---------- шкатулки ---------- */
+
+/* Каталог шкатулок правится здесь: название, описание и какие снимки
+   показывать при каждом варианте. Те же связки продублированы в
+   prepare-photos.ps1 — там из исходников с телефона собираются эти файлы.
+   Пустой список фотографий допустим: тогда снимок просто не меняется. */
+
+const NO_FINISH = { id: "none", label: "Без отделки", photos: [] };
+
+/* Выключатели: у каждого свой набор снимков. Пустой набор — вариант есть,
+   но показать его нечем, снимок тогда не меняется. */
+const MUSICAL = { id: "musical", label: "Музыкальная", chip: "Сделать музыкальной", photos: [] };
+
+/* Отзывы — заготовка: одинаковый текст и подписи-заполнители.
+   Чтобы поставить настоящие, замените REVIEW_TEXT и списки в поле reviews. */
+const REVIEW_TEXT = "Текст отзыва пока не заполнен — здесь появится настоящий отзыв покупателя.";
+
+const placeholderReviews = count =>
+Array.from({ length: count }, (unused, index) => "Имя клиента " + (index + 1));
+
+const boxes = [
+{
+name: "Военная шкатулка",
+text: "Корпус в духе полевого ящика: накладные планки на крышке, крепкие угловые соединения. Внутрь кладётся флешка с фильмом памяти, рядом помещаются награды и документы.",
+colors: [
+{ id: "dark",  label: "Тёмный дуб",   photos: ["voennaya-dark-1.jpg", "voennaya-dark-2.jpg", "voennaya-dark-3.jpg"] },
+{ id: "oreh",  label: "Орех",         photos: ["voennaya-oreh-1.jpg"] },
+{ id: "plain", label: "Без покрытия", photos: ["voennaya-plain-1.jpg", "voennaya-plain-2.jpg", "voennaya-plain-3.jpg"] }
+],
+finishes: [],
+toggles: [MUSICAL],
+video: "voennaya-video.mp4",
+orders: 108,
+reviews: placeholderReviews(6)
+},
+{
+name: "Шкатулка классика",
+text: "Крупная шкатулка-книга с наборным корешком. Внутри — флешка с фильмом памяти, фотографии и документы. Можно затянуть замшей или кожей и нанести гравировку.",
+colors: [
+{ id: "dark", label: "Тёмный дуб", photos: ["klassika-dark-1.jpg", "klassika-dark-2.jpg"] },
+{ id: "oreh", label: "Орех",       photos: ["klassika-oreh-1.jpg", "klassika-oreh-2.jpg", "klassika-oreh-3.jpg"] }
+],
+finishes: [
+NO_FINISH,
+{ id: "zamsha", label: "Замшевая отделка", photos: ["klassika-zamsha-1.jpg"] },
+{ id: "kozha",  label: "Кожа",             photos: ["klassika-kozha-1.jpg", "klassika-kozha-2.jpg", "klassika-kozha-3.jpg"] }
+],
+toggles: [
+{ id: "gravirovka", label: "Гравировка", chip: "Добавить гравировку", photos: ["klassika-gravirovka-1.jpg"] },
+MUSICAL
+],
+video: "klassika-video.mp4",
+orders: 74,
+reviews: placeholderReviews(5)
+},
+{
+name: "Шкатулка книжка",
+text: "Небольшая шкатулка-книга с резным крестом на обложке и гибким наборным корешком. Рассчитана на флешку с фильмом памяти и несколько дорогих сердцу мелочей.",
+colors: [
+{ id: "dark", label: "Тёмный дуб", photos: ["knizhka-dark-1.jpg", "knizhka-dark-2.jpg", "knizhka-dark-3.jpg"] },
+{ id: "oreh", label: "Орех",       photos: ["knizhka-oreh-1.jpg", "knizhka-oreh-2.jpg", "knizhka-oreh-3.jpg"] }
+],
+finishes: [NO_FINISH, { id: "zamsha", label: "Замшевая отделка", photos: ["knizhka-zamsha-1.jpg"] }],
+toggles: [MUSICAL],
+video: "knizhka-video.mp4",
+orders: 56,
+reviews: placeholderReviews(4)
+},
+{
+name: "Выдвижная шкатулка",
+text: "Ящик выдвигается вбок, на лицевой панели — гравировка с именем и отчеством. Внутри ложе под флешку с фильмом памяти и фотографии.",
+colors: [
+{ id: "plain", label: "Без покрытия", photos: ["vydvizhnaya-plain-1.jpg"] }
+],
+finishes: [],
+toggles: [
+{ id: "gravirovka", label: "Гравировка", chip: "Добавить гравировку", photos: ["vydvizhnaya-plain-1.jpg"] },
+MUSICAL
+],
+video: "vydvizhnaya-video.mp4",
+orders: 41,
+reviews: placeholderReviews(3)
+},
+{
+name: "Шкатулка мини",
+text: "Овальная шкатулка со съёмной крышкой — самый компактный вариант, точно под флешку с фильмом памяти.",
+colors: [
+{ id: "dark", label: "Тёмный дуб", photos: ["mini-dark-1.jpg", "mini-dark-2.jpg"] }
+],
+finishes: [],
+toggles: [MUSICAL],
+video: "",
+orders: 29,
+reviews: placeholderReviews(3)
+}
+];
+
+/* Какие снимки показывать при текущем выборе.
+   Приоритет: выключатели (в порядке объявления) -> отделка -> цвет.
+   Если для варианта своих снимков нет, откатываемся к снимкам цвета. */
+function photosFor(product, state){
+for(const toggle of product.toggles){
+if(state.on.has(toggle.id) && toggle.photos.length){
+return toggle.photos;
+}
+}
+const finish = product.finishes[state.finish];
+if(finish && finish.photos.length){
+return finish.photos;
+}
+return product.colors[state.color].photos;
+}
+
+/* Человекочитаемый список выбранного — уходит вместе с заявкой */
+function optionsText(product, state){
+const parts = [];
+if(product.colors.length > 1){
+parts.push("цвет: " + product.colors[state.color].label.toLowerCase());
+}
+const finish = product.finishes[state.finish];
+if(finish && finish.id !== "none"){
+parts.push("отделка: " + finish.label.toLowerCase());
+}
+product.toggles.forEach(toggle => {
+if(state.on.has(toggle.id)){
+parts.push(toggle.label.toLowerCase());
+}
+});
+return parts.join(", ");
+}
+
+function buildBox(product){
+
+const state = { color: 0, finish: 0, on: new Set() };
+
+const article = document.createElement("article");
+article.className = "box";
+
+const media = document.createElement("div");
+const frame = document.createElement("div");
+frame.className = "box-photo";
+const photo = document.createElement("img");
+photo.loading = "lazy";
+photo.alt = product.name;
+frame.append(photo);
+const thumbs = document.createElement("div");
+thumbs.className = "box-thumbs";
+media.append(frame, thumbs);
+
+/* Ролик снят на телефон в 4K и весит десятки мегабайт, поэтому
+   preload="none": до нажатия на «плей» не качается ни байта.
+   Элемент создаётся один раз и переиспользуется — иначе при каждом
+   переключении браузер заново открывал бы соединение. */
+const video = product.video ? document.createElement("video") : null;
+if(video){
+video.controls = true;
+video.muted = true;   /* в каталоге ролики идут без звука */
+video.preload = "none";
+video.playsInline = true;
+video.src = product.video;
+}
+
+const info = document.createElement("div");
+info.className = "box-info";
+const title = document.createElement("h3");
+title.textContent = product.name;
+
+const orders = document.createElement("div");
+orders.className = "box-orders";
+orders.append("Заказов: ");
+const count = document.createElement("b");
+count.textContent = product.orders;
+orders.append(count);
+
+const text = document.createElement("p");
+text.textContent = product.text;
+info.append(title, orders, text);
+
+/* Карусель: снимки выбранного варианта плюс, если есть, ролик последним кадром.
+   Показываем один слайд, под ним полоска миниатюр. */
+function showSlide(slides, index){
+const slide = slides[index];
+if(slide.video){
+video.poster = slide.poster;
+frame.replaceChildren(video);
+} else {
+if(video){ video.pause(); }
+photo.src = slide.src;
+frame.replaceChildren(photo);
+}
+thumbs.querySelectorAll("button").forEach((button, i) =>
+button.setAttribute("aria-current", i === index ? "true" : "false"));
+}
+
+function showPhotos(){
+const list = photosFor(product, state);
+const slides = list.map(src => ({ src }));
+if(video){
+slides.push({ video: true, poster: list[0] });
+}
+
+thumbs.replaceChildren();
+if(slides.length > 1){
+slides.forEach((slide, index) => {
+const button = document.createElement("button");
+button.type = "button";
+button.setAttribute("aria-current", "false");
+if(slide.video){
+button.classList.add("thumb-video");
+button.setAttribute("aria-label", "Видео");
+} else {
+button.setAttribute("aria-label", "Снимок " + (index + 1));
+}
+const mini = document.createElement("img");
+mini.src = slide.video ? slide.poster : slide.src;
+mini.loading = "lazy";
+mini.alt = "";
+button.append(mini);
+button.addEventListener("click", () => showSlide(slides, index));
+thumbs.append(button);
+});
+}
+
+showSlide(slides, 0);
+}
+
+/* группа переключателей: цвет и отделка — по одному, гравировка — да/нет */
+function addGroup(label, options, current, onPick){
+if(options.length < 2){ return; }
+const group = document.createElement("div");
+group.className = "mod-group";
+const caption = document.createElement("div");
+caption.className = "mod-title";
+caption.textContent = label;
+const row = document.createElement("div");
+row.className = "mod-options";
+options.forEach((option, index) => {
+const chip = document.createElement("button");
+chip.type = "button";
+chip.className = "chip";
+chip.textContent = option.label;
+chip.setAttribute("aria-pressed", index === current ? "true" : "false");
+chip.addEventListener("click", () => {
+onPick(index);
+row.querySelectorAll(".chip").forEach(other =>
+other.setAttribute("aria-pressed", other === chip ? "true" : "false"));
+showPhotos();
+});
+row.append(chip);
+});
+group.append(caption, row);
+info.append(group);
+}
+
+addGroup("Цвет", product.colors, state.color, index => { state.color = index; });
+addGroup("Отделка", product.finishes, state.finish, index => { state.finish = index; });
+
+product.toggles.forEach(toggle => {
+const group = document.createElement("div");
+group.className = "mod-group";
+const caption = document.createElement("div");
+caption.className = "mod-title";
+caption.textContent = toggle.label;
+const row = document.createElement("div");
+row.className = "mod-options";
+const chip = document.createElement("button");
+chip.type = "button";
+chip.className = "chip";
+chip.textContent = toggle.chip;
+chip.setAttribute("aria-pressed", "false");
+chip.addEventListener("click", () => {
+const active = !state.on.has(toggle.id);
+if(active){ state.on.add(toggle.id); } else { state.on.delete(toggle.id); }
+chip.setAttribute("aria-pressed", active ? "true" : "false");
+showPhotos();
+});
+row.append(chip);
+group.append(caption, row);
+info.append(group);
+});
+
+const actions = document.createElement("div");
+actions.className = "box-actions";
+
+const order = document.createElement("button");
+order.type = "button";
+order.className = "price-btn";
+order.textContent = "Узнать цену";
+order.addEventListener("click", () => openModal(product.name, optionsText(product, state)));
+
+const reviews = document.createElement("button");
+reviews.type = "button";
+reviews.className = "reviews-btn";
+reviews.textContent = "Отзывы (" + product.reviews.length + ")";
+reviews.addEventListener("click", () => openReviews(product));
+
+actions.append(order, reviews);
+info.append(actions);
+
+showPhotos();
+article.append(media, info);
+return article;
+}
+
+const boxList = document.getElementById("boxList");
+boxes.forEach(product => boxList.append(buildBox(product)));
+
+/* ---------- появление карточек ---------- */
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){ entry.target.classList.add("show"); }
+});
+}, { threshold: 0.05 });
+
+document.querySelectorAll(".item, .box").forEach(item => {
+item.classList.add("fade");
+observer.observe(item);
+});
+
+</script>
+
+<script src="placeholder.js"></script>
+</body>
+
+</html>

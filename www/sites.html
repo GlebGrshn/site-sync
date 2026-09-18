@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Сайты памяти — Помним</title>
+<meta name="description" content="Персональный сайт памяти: биография, фотоархив, награды, документы и воспоминания близких. Пять готовых оформлений на выбор.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<style>
+
+.page-head{padding:150px 0 10px;text-align:center;}
+
+.page-head h1{
+font-family:"Cormorant Garamond",serif;
+font-size:62px;
+font-weight:300;
+line-height:1.1;
+margin-bottom:22px;
+}
+
+.sites{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:34px;
+margin-top:60px;
+padding-bottom:110px;
+}
+
+.site{
+background:var(--card);
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.05);
+display:flex;
+flex-direction:column;
+transition:.3s;
+}
+
+.site:hover{transform:translateY(-6px);}
+
+/* Живое превью: настоящий сайт в уменьшенной рамке.
+   Клики через него не проходят — переход только по кнопке. */
+.site-preview{
+position:relative;
+height:330px;
+overflow:hidden;
+background:#efe8dc;
+border-bottom:1px solid var(--line);
+}
+
+.site-preview iframe{
+position:absolute;
+top:0;
+left:0;
+width:1280px;
+height:940px;
+border:0;
+transform:scale(.42);
+transform-origin:0 0;
+pointer-events:none;
+}
+
+.site-preview .veil{
+position:absolute;
+inset:0;
+cursor:pointer;
+}
+
+.site-body{
+padding:32px;
+display:flex;
+flex-direction:column;
+flex:1;
+}
+
+.site-theme{
+font-size:12px;
+letter-spacing:.22em;
+text-transform:uppercase;
+color:var(--gold);
+margin-bottom:12px;
+}
+
+.site-body h2{
+font-family:"Cormorant Garamond",serif;
+font-size:34px;
+font-weight:400;
+line-height:1.2;
+margin-bottom:14px;
+}
+
+.site-body p{
+font-size:17px;
+line-height:1.8;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+.site-person{
+font-size:14px;
+color:var(--muted);
+padding:10px 16px;
+background:#f6f1e8;
+border-radius:100px;
+display:inline-block;
+margin-bottom:24px;
+align-self:flex-start;
+}
+
+.site-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:auto;
+}
+
+.go-btn{
+display:inline-block;
+padding:16px 32px;
+border-radius:100px;
+background:var(--gold);
+color:#fff;
+font-size:14px;
+letter-spacing:.06em;
+transition:.25s;
+}
+
+.go-btn:hover{transform:translateY(-3px);}
+
+.ask-btn{
+padding:16px 30px;
+border:1px solid var(--line);
+border-radius:100px;
+background:#fff;
+font-family:Jost,sans-serif;
+font-size:14px;
+letter-spacing:.06em;
+color:var(--text);
+cursor:pointer;
+transition:.25s;
+}
+
+.ask-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+.note{
+max-width:860px;
+margin:0 auto 90px;
+padding:26px 30px;
+background:#fff;
+border:1px solid var(--line);
+border-radius:18px;
+color:var(--muted);
+line-height:1.8;
+font-size:16px;
+text-align:center;
+}
+
+@media(max-width:1100px){
+
+.page-head{padding:110px 0 10px;}
+
+.page-head h1{font-size:40px;}
+
+.sites{grid-template-columns:1fr;}
+
+.site-preview{height:260px;}
+
+.site-preview iframe{transform:scale(.33);}
+
+.site-body{padding:26px;}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html" class="logo">Помним</a>
+
+<ul class="menu">
+<li><a href="films.html">Фильмы памяти</a></li>
+<li><a href="sites.html" class="active">Сайты</a></li>
+<li><a href="catalog.html">Каталог</a></li>
+</ul>
+
+<button class="header-order" id="headerOrder">Заказать</button>
+
+</nav>
+
+<header class="page-head">
+
+<div class="container">
+
+<div class="subtitle">Сайты памяти</div>
+
+<h1>Страница памяти о человеке</h1>
+
+<p class="description">
+Биография, фотоархив, награды, документы и воспоминания близких на одной странице. Открывается по ссылке или QR-коду из любой точки мира — в телефоне, на компьютере, на поминальном обеде. Ниже пять готовых оформлений: нажмите «Перейти на сайт», чтобы посмотреть вживую.
+</p>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="sites" id="siteList"></div>
+
+<p class="note">
+Первые четыре сайта заполнены вымышленным человеком — это образцы оформления.
+Пятый собран по-настоящему: реальная биография, документы и семейные снимки.
+</p>
+
+</div>
+
+<footer>
+
+<div class="footer-logo">Помним</div>
+
+<div class="footer-links">
+<a href="films.html">Фильмы памяти</a>
+<a href="sites.html">Сайты</a>
+<a href="catalog.html">Каталог</a>
+<a href="#">Политика конфиденциальности</a>
+</div>
+
+</footer>
+
+<div class="modal" id="priceModal" role="dialog" aria-modal="true">
+
+<div class="modal-window">
+
+<button class="close" id="priceClose" aria-label="Закрыть">&times;</button>
+
+<div id="priceContent">
+
+<h2>Узнать цену</h2>
+
+<p class="modal-lead">
+Оставьте номер телефона — перезвоним и назовём стоимость.<br>
+<b id="priceItem"></b>
+</p>
+
+<form id="priceForm" novalidate>
+
+<input type="hidden" name="item" id="priceItemField">
+<input type="hidden" name="options" id="priceOptionsField">
+
+<label class="field">
+<span>Как к вам обращаться</span>
+<input type="text" name="name" placeholder="Имя" autocomplete="name" maxlength="60" required>
+</label>
+
+<label class="field">
+<span>Телефон</span>
+<input type="tel" name="phone" placeholder="+7 900 000-00-00" autocomplete="tel" inputmode="tel" maxlength="30" required>
+</label>
+
+<div class="trap" aria-hidden="true">
+<label>Не заполняйте это поле
+<input type="text" name="website" tabindex="-1" autocomplete="off">
+</label>
+</div>
+
+<label class="consent">
+<input type="checkbox" name="consent" required>
+<span>Согласен на обработку персональных данных и получение обратного звонка</span>
+</label>
+
+<button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
+
+<div class="form-note" id="formNote" role="status" aria-live="polite"></div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ---------- каталог сайтов ----------
+   Правится здесь: папка, название оформления и описание.
+   Каждый сайт лежит в pamyat/<folder>/index.html рядом с этой страницей. */
+
+const sites = [
+{
+folder: "site-1-warm",
+theme: "Свет",
+title: "Тёплая архивная",
+person: "Образец · Николай Ветров, 1951–2024",
+text: "Кремовая бумага с зерном, портрет в паспарту со сдвинутой подложкой, буквица в начале биографии, события жизни на вертикальной оси. Спокойное домашнее оформление без лишнего пафоса."
+},
+{
+folder: "site-2-noir",
+theme: "Ночь",
+title: "Кинематографичная",
+person: "Образец · Николай Ветров, 1951–2024",
+text: "Обложка во весь экран с виньеткой, золотые волосяные линии, фотолента с прокруткой вбок и номерами кадров, крупные цитаты. Похоже на титры хорошего фильма."
+},
+{
+folder: "site-3-paper",
+theme: "Бумага",
+title: "Строгая типографика",
+person: "Образец · Николай Ветров, 1951–2024",
+text: "Белый лист, титул во всю ширину, чёрно-белые снимки, асимметричная сетка и красные номера разделов. Сдержанно и очень читаемо."
+},
+{
+folder: "site-4-all",
+theme: "Три дизайна",
+title: "Все оформления сразу",
+person: "Образец · Николай Ветров, 1951–2024",
+text: "Тот же сайт с переключателем оформления в шапке: «Свет», «Ночь» и «Бумага» меняются на лету, выбор запоминается. Удобно показать родным и выбрать вместе."
+},
+{
+folder: "site-5-war",
+theme: "Фронт",
+title: "Военная тема",
+person: "Образец · Иван Ветров, 1923–2000",
+text: "Тёмный графит, георгиевская лента, красная звезда, узкий уставный шрифт. Отдельные разделы: боевой путь на карте, награды и документы крупным планом."
+}
+];
+
+const list = document.getElementById("siteList");
+
+sites.forEach(site => {
+const url = "pamyat/" + site.folder + "/index.html";
+
+const card = document.createElement("article");
+card.className = "site";
+
+const preview = document.createElement("div");
+preview.className = "site-preview";
+const frame = document.createElement("iframe");
+frame.src = url;
+frame.loading = "lazy";
+frame.setAttribute("scrolling", "no");
+frame.setAttribute("tabindex", "-1");
+frame.setAttribute("aria-hidden", "true");
+frame.title = "Превью: " + site.title;
+const veil = document.createElement("div");
+veil.className = "veil";
+veil.addEventListener("click", () => window.open(url, "_blank", "noopener"));
+preview.append(frame, veil);
+
+const body = document.createElement("div");
+body.className = "site-body";
+
+const theme = document.createElement("div");
+theme.className = "site-theme";
+theme.textContent = "Оформление «" + site.theme + "»";
+
+const title = document.createElement("h2");
+title.textContent = site.title;
+
+const person = document.createElement("div");
+person.className = "site-person";
+person.textContent = site.person;
+
+const text = document.createElement("p");
+text.textContent = site.text;
+
+const actions = document.createElement("div");
+actions.className = "site-actions";
+
+const go = document.createElement("a");
+go.className = "go-btn";
+go.href = url;
+go.target = "_blank";
+go.rel = "noopener";
+go.textContent = "Перейти на сайт";
+
+const ask = document.createElement("button");
+ask.type = "button";
+ask.className = "ask-btn";
+ask.textContent = "Узнать цену";
+ask.addEventListener("click", () => openModal("Сайт памяти «" + site.theme + "»"));
+
+actions.append(go, ask);
+body.append(theme, title, person, text, actions);
+card.append(preview, body);
+list.append(card);
+});
+
+/* ---------- окно заявки ---------- */
+
+const modal = document.getElementById("priceModal");
+const modalContent = document.getElementById("priceContent");
+const initialMarkup = modalContent.innerHTML;
+let lastFocused = null;
+
+function openModal(itemName){
+lastFocused = document.activeElement;
+modalContent.innerHTML = initialMarkup;
+bindForm();
+document.getElementById("priceItem").textContent = itemName;
+document.getElementById("priceItemField").value = itemName;
+document.getElementById("priceOptionsField").value = "";
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+const first = modalContent.querySelector('input[name="name"]');
+if(first){ first.focus(); }
+}
+
+function closeModal(){
+modal.classList.remove("active");
+document.body.style.overflow = "";
+if(lastFocused){ lastFocused.focus(); }
+}
+
+document.getElementById("priceClose").addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+if(event.target === modal){ closeModal(); }
+});
+
+document.addEventListener("keydown", event => {
+if(event.key === "Escape" && modal.classList.contains("active")){ closeModal(); }
+});
+
+document.getElementById("headerOrder").addEventListener("click", () => openModal("Сайт памяти"));
+
+function digitsOf(value){
+return (value.match(/\d/g) || []).length;
+}
+
+function bindForm(){
+
+const form = document.getElementById("priceForm");
+if(!form){ return; }
+
+const note = document.getElementById("formNote");
+const submitBtn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", async event => {
+
+event.preventDefault();
+
+const data = new FormData(form);
+const name = (data.get("name") || "").toString().trim();
+const phone = (data.get("phone") || "").toString().trim();
+
+note.className = "form-note";
+note.textContent = "";
+
+if(name.length < 2){
+note.className = "form-note error";
+note.textContent = "Напишите, как к вам обращаться.";
+form.name.focus();
+return;
+}
+
+if(digitsOf(phone) < 10){
+note.className = "form-note error";
+note.textContent = "Проверьте номер телефона — в нём должно быть не меньше 10 цифр.";
+form.phone.focus();
+return;
+}
+
+if(!data.get("consent")){
+note.className = "form-note error";
+note.textContent = "Нужно согласие на обработку персональных данных.";
+return;
+}
+
+submitBtn.disabled = true;
+submitBtn.textContent = "Отправляем…";
+
+try{
+
+const response = await fetch("lead.php", { method: "POST", body: data });
+const result = await response.json();
+
+if(!response.ok || !result.ok){
+throw new Error(result.error || "Сервер не принял заявку");
+}
+
+const done = document.createElement("div");
+done.className = "done";
+const title = document.createElement("h3");
+title.textContent = "Заявка принята";
+const text = document.createElement("p");
+text.textContent = `Спасибо, ${name}. Мы перезвоним на указанный номер в ближайшее время.`;
+done.append(title, text);
+modalContent.replaceChildren(done);
+
+}catch(error){
+
+submitBtn.disabled = false;
+submitBtn.textContent = "Отправить";
+note.className = "form-note error";
+note.textContent = "Не получилось отправить заявку. Позвоните нам или попробуйте ещё раз.";
+console.error(error);
+
+}
+
+});
+
+}
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){ entry.target.classList.add("show"); }
+});
+}, { threshold: 0.05 });
+
+document.querySelectorAll(".site").forEach(item => {
+item.classList.add("fade");
+observer.observe(item);
+});
+
+</script>
+
+<script src="placeholder.js"></script>
+</body>
+
+</html>

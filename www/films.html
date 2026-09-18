@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Фильмы памяти — Помним</title>
+<meta name="description" content="Фильмы памяти из фотографий, домашнего видео и любимой музыки. Современный формат с оживлением снимков и традиционный с классическим монтажом. Песни памяти.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<style>
+
+.page-head{
+padding:150px 0 10px;
+text-align:center;
+}
+
+.page-head h1{
+font-family:"Cormorant Garamond",serif;
+font-size:62px;
+font-weight:300;
+line-height:1.1;
+margin-bottom:22px;
+}
+
+/* ---------- карточки фильмов ---------- */
+
+.films{
+margin-top:60px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:30px;
+}
+
+.film{
+background:#fff;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.film:hover{transform:translateY(-6px);}
+
+.film-image{height:400px;overflow:hidden;}
+
+.film-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.4s;
+}
+
+.film:hover .film-image img{transform:scale(1.05);}
+
+.film-body{padding:30px;}
+
+.film-body h3{
+font-family:"Cormorant Garamond",serif;
+font-size:32px;
+font-weight:400;
+margin-bottom:14px;
+}
+
+.film-body p{line-height:1.8;color:var(--muted);margin-bottom:24px;}
+
+.watch{
+display:inline-block;
+padding:15px 32px;
+border-radius:100px;
+background:var(--gold);
+color:#fff;
+font-size:14px;
+border:none;
+font-family:Jost,sans-serif;
+cursor:pointer;
+transition:.25s;
+}
+
+.watch:hover{transform:translateY(-3px);}
+
+/* ---------- традиционные фильмы ---------- */
+
+.traditional{
+background:linear-gradient(#fbfaf7,#f5f0e8);
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
+}
+
+.traditional-grid{
+display:grid;
+grid-template-columns:1.1fr 1fr;
+gap:60px;
+align-items:center;
+margin-top:70px;
+}
+
+.video-frame{
+border-radius:24px;
+overflow:hidden;
+background:#17150f;
+box-shadow:0 25px 60px rgba(0,0,0,.12);
+}
+
+.video-frame video{width:100%;display:block;}
+
+.video-caption{
+margin-top:16px;
+text-align:center;
+font-size:14px;
+letter-spacing:.06em;
+color:var(--muted);
+}
+
+.traditional-text h3{
+font-family:"Cormorant Garamond",serif;
+font-size:42px;
+font-weight:300;
+line-height:1.2;
+margin-bottom:26px;
+}
+
+.traditional-text p{
+font-size:18px;
+line-height:1.95;
+color:var(--muted);
+margin-bottom:22px;
+}
+
+.check-list{
+display:flex;
+flex-direction:column;
+gap:16px;
+margin-top:34px;
+}
+
+.check-list div{
+font-size:17px;
+line-height:1.6;
+color:var(--text);
+display:flex;
+gap:12px;
+align-items:baseline;
+}
+
+.check-list i{color:var(--gold);font-style:normal;}
+
+.comparison{
+margin-top:100px;
+padding-top:60px;
+border-top:1px solid var(--line);
+}
+
+.comparison h3{
+font-family:"Cormorant Garamond",serif;
+font-size:46px;
+font-weight:300;
+text-align:center;
+margin-bottom:18px;
+}
+
+.comparison .video-frame{max-width:1000px;margin:45px auto 0;}
+
+/* ---------- почему это важно ---------- */
+
+.memory{
+background:#fff;
+border-bottom:1px solid var(--line);
+}
+
+.memory-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:70px;
+align-items:center;
+}
+
+.memory-image{border-radius:28px;overflow:hidden;height:600px;}
+
+.memory-image img{width:100%;height:100%;object-fit:cover;}
+
+.memory-text h2{
+font-family:"Cormorant Garamond",serif;
+font-size:54px;
+font-weight:300;
+margin-bottom:28px;
+}
+
+.memory-text p{
+font-size:19px;
+line-height:2;
+color:var(--muted);
+margin-bottom:22px;
+}
+
+/* ---------- песни памяти ---------- */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:28px;
+margin-top:60px;
+}
+
+.card{
+background:var(--card);
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.card:hover{transform:translateY(-6px);}
+
+.card-photo{height:320px;overflow:hidden;}
+
+.card-photo img{width:100%;height:100%;object-fit:cover;transition:.4s;}
+
+.card:hover .card-photo img{transform:scale(1.05);}
+
+.card-content{padding:28px;}
+
+.card-content h3{
+font-family:"Cormorant Garamond",serif;
+font-size:32px;
+font-weight:400;
+margin-bottom:16px;
+}
+
+.card-content p{font-size:17px;line-height:1.8;color:var(--muted);margin-bottom:24px;}
+
+.listen{
+display:inline-block;
+padding:15px 30px;
+background:var(--gold);
+color:#fff;
+border:none;
+border-radius:100px;
+font-size:14px;
+font-family:Jost,sans-serif;
+cursor:pointer;
+transition:.25s;
+}
+
+.listen:hover{transform:translateY(-3px);}
+
+.cta{
+padding:130px 0;
+text-align:center;
+background:linear-gradient(#faf9f6,#f4efe7);
+}
+
+.cta h2{
+font-family:"Cormorant Garamond",serif;
+font-size:58px;
+font-weight:300;
+margin-bottom:24px;
+}
+
+.cta p{
+font-size:19px;
+line-height:1.9;
+max-width:760px;
+margin:0 auto 46px;
+color:var(--muted);
+}
+
+@media(max-width:1100px){
+
+.page-head{padding:110px 0 10px;}
+
+.page-head h1{font-size:40px;}
+
+.films,
+.cards,
+.memory-grid,
+.traditional-grid{grid-template-columns:1fr;}
+
+.traditional-grid{gap:40px;}
+
+.memory-image{height:380px;}
+
+.memory-text h2{font-size:34px;}
+
+.traditional-text h3{font-size:32px;}
+
+.comparison{margin-top:70px;}
+
+.comparison h3{font-size:34px;}
+
+.film-image{height:280px;}
+
+.cta h2{font-size:38px;}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="index.html" class="logo">Помним</a>
+
+<ul class="menu">
+<li><a href="films.html" class="active">Фильмы памяти</a></li>
+<li><a href="sites.html">Сайты</a></li>
+<li><a href="catalog.html">Каталог</a></li>
+</ul>
+
+<button class="header-order" id="headerOrder">Заказать</button>
+
+</nav>
+
+<header class="page-head">
+
+<div class="container">
+
+<div class="subtitle">Главное направление</div>
+
+<h1>Фильмы памяти</h1>
+
+<p class="description">
+Каждый фильм создаётся индивидуально из фотографий, видеоархива и истории жизни человека. Получается не просто ролик, а настоящая семейная память.
+</p>
+
+</div>
+
+</header>
+
+<section class="section">
+
+<div class="container">
+
+<div class="films">
+
+<div class="film">
+<div class="film-image"><img src="img1.jpg" alt="История семьи"></div>
+<div class="film-body">
+<h3>История семьи</h3>
+<p>Домашние фотографии, детство, свадьба, любимая музыка и самые важные моменты жизни.</p>
+<button class="watch" data-video="video_1.mp4">Смотреть</button>
+</div>
+</div>
+
+<div class="film">
+<div class="film-image"><img src="img2.png" alt="Светлая память"></div>
+<div class="film-body">
+<h3>Светлая память</h3>
+<p>Трогательный фильм для близких, который можно пересматривать всей семьёй.</p>
+<button class="watch" data-video="video_2.mp4">Смотреть</button>
+</div>
+</div>
+
+<div class="film">
+<div class="film-image"><img src="img3.png" alt="История жизни"></div>
+<div class="film-body">
+<h3>История жизни</h3>
+<p>Фотографии, архивные видео, голос и музыка объединяются в единую историю.</p>
+<button class="watch" data-video="video_3.mp4">Смотреть</button>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section traditional" id="traditional">
+
+<div class="container">
+
+<div class="subtitle">Классический формат</div>
+
+<h2 class="title">Традиционные фильмы памяти</h2>
+
+<p class="description">
+Тот же бережный подход к истории человека, но в сдержанной, привычной подаче. Фотографии остаются такими, какими их когда-то сняли, — без оживления и движения. Только последовательный монтаж, плавные переходы, титры и музыка.
+</p>
+
+<div class="traditional-grid">
+
+<div>
+<div class="video-frame">
+<video controls preload="metadata" playsinline>
+<source src="traditional.mp4" type="video/mp4">
+Ваш браузер не поддерживает видео.
+</video>
+</div>
+<div class="video-caption">Пример традиционного фильма памяти</div>
+</div>
+
+<div class="traditional-text">
+
+<h3>Когда важна сдержанность</h3>
+
+<p>
+Традиционный фильм собирается из тех же материалов, что и любой наш фильм памяти: семейных фотографий, домашних видеоархивов, любимой музыки и истории жизни человека. Отличается только подача.
+</p>
+
+<p>
+Здесь нет анимации и оживших снимков — кадры сменяют друг друга спокойно, в хронологии событий: детство, юность, семья, самые важные моменты. Такой формат выбирают для траурной церемонии, поминального дня и семейного просмотра, когда любое лишнее движение на экране кажется неуместным.
+</p>
+
+<div class="check-list">
+<div><i>✓</i> Классический последовательный монтаж</div>
+<div><i>✓</i> Фотографии без оживления и анимации</div>
+<div><i>✓</i> Плавные переходы и деликатные титры</div>
+<div><i>✓</i> Любимая музыка и озвучка</div>
+<div><i>✓</i> Хронология жизни в порядке событий</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="comparison">
+
+<h3>Сравнение форматов</h3>
+
+<p class="description">
+На одном экране — традиционный фильм с классическим монтажом и наш фильм с оживлением фотографий. Так проще понять, какой формат ближе вашей семье.
+</p>
+
+<div class="video-frame">
+<video controls preload="metadata" playsinline>
+<source src="comparison.mp4" type="video/mp4">
+Ваш браузер не поддерживает видео.
+</video>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section memory">
+
+<div class="container">
+
+<div class="memory-grid">
+
+<div class="memory-image">
+<img src="family-memory.jpg" alt="Семейные фотографии">
+</div>
+
+<div class="memory-text">
+
+<div class="subtitle" style="text-align:left">Почему это важно</div>
+
+<h2>Самые дорогие моменты не должны исчезнуть</h2>
+
+<p>
+Фотографии выцветают, видео теряются, а воспоминания становятся всё менее чёткими. Фильм памяти помогает сохранить историю человека такой, какой её помнят самые близкие.
+</p>
+
+<p>
+Видео можно создать в любом стиле — классическом, современном или с учётом традиций и религии ушедшего.
+</p>
+
+<div class="check-list">
+<div><i>✓</i> Семейные фотографии</div>
+<div><i>✓</i> Домашние видеоархивы</div>
+<div><i>✓</i> Любимая музыка</div>
+<div><i>✓</i> Озвучка и титры</div>
+<div><i>✓</i> Индивидуальный сценарий</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section" id="songs">
+
+<div class="container">
+
+<div class="subtitle">Дополнительно</div>
+
+<h2 class="title">Песни памяти</h2>
+
+<p class="description">
+По фотографиям и истории человека мы можем создать индивидуальную песню, которая станет частью фильма или самостоятельным произведением.
+</p>
+
+<div class="cards">
+
+<div class="card">
+<div class="card-photo"><img src="song1.png" alt="Светлая память"></div>
+<div class="card-content">
+<h3>Светлая память</h3>
+<p>Лирическая композиция с индивидуальным текстом, посвящённая близкому человеку.</p>
+<button class="listen" data-audio="song_1.mp3">Послушать</button>
+</div>
+</div>
+
+<div class="card">
+<div class="card-photo"><img src="song1.png" alt="История любви"></div>
+<div class="card-content">
+<h3>История любви</h3>
+<p>Песня о семье, совместной жизни и воспоминаниях, которые хочется сохранить.</p>
+<button class="listen" data-audio="song_2.mp3">Послушать</button>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="cta">
+
+<div class="container">
+
+<h2>Сохраните историю близкого человека</h2>
+
+<p>
+Отправьте фотографии, видео и несколько слов о человеке. Мы создадим фильм памяти, который будет хранить самые дорогие воспоминания и сможет объединить всю семью.
+</p>
+
+<a class="btn btn-main" href="catalog.html">Перейти в каталог</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-logo">Помним</div>
+
+<div class="footer-links">
+<a href="films.html">Фильмы памяти</a>
+<a href="sites.html">Сайты</a>
+<a href="catalog.html">Каталог</a>
+<a href="#">Политика конфиденциальности</a>
+</div>
+
+</footer>
+
+<div class="modal" id="modal">
+<div class="modal-window">
+<button class="close" id="closeModal" aria-label="Закрыть">&times;</button>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<script>
+
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modalBody");
+
+function openModal(html){
+modalBody.innerHTML = html;
+modal.classList.add("active");
+document.body.style.overflow = "hidden";
+}
+
+function closeModal(){
+const media = modalBody.querySelector("video, audio");
+if(media){ media.pause(); }
+modal.classList.remove("active");
+document.body.style.overflow = "";
+}
+
+/* Файл берётся из data-атрибута кнопки, а не по её порядковому номеру:
+   добавить карточку можно где угодно, ничего не сдвинется. */
+
+document.querySelectorAll(".watch").forEach(button => {
+button.addEventListener("click", () => {
+openModal(`<video controls autoplay playsinline>
+<source src="${button.dataset.video}" type="video/mp4">
+Ваш браузер не поддерживает видео.
+</video>`);
+});
+});
+
+document.querySelectorAll(".listen").forEach(button => {
+button.addEventListener("click", () => {
+openModal(`<audio controls autoplay>
+<source src="${button.dataset.audio}" type="audio/mpeg">
+Ваш браузер не поддерживает аудио.
+</audio>`);
+});
+});
+
+document.getElementById("headerOrder").addEventListener("click", () => {
+openModal(`<h2>Заказ</h2>
+<p class="modal-lead">
+Для заказа <b>фильма памяти</b><br>
+обратитесь к сотруднику заведения.
+</p>`);
+});
+
+document.getElementById("closeModal").addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+if(event.target === modal){ closeModal(); }
+});
+
+document.addEventListener("keydown", event => {
+if(event.key === "Escape" && modal.classList.contains("active")){ closeModal(); }
+});
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){ entry.target.classList.add("show"); }
+});
+}, { threshold: 0.05 });
+
+document.querySelectorAll(".film, .card").forEach(item => {
+item.classList.add("fade");
+observer.observe(item);
+});
+
+</script>
+
+<script src="placeholder.js"></script>
+</body>
+
+</html>
